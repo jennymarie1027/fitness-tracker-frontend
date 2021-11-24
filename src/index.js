@@ -14,7 +14,7 @@ const Index = () => {
     useEffect(() => {
         const storedToken = localStorage.getItem('token')
         if (storedToken) {
-        setToken(storedToken);
+            setToken(storedToken);
         }
         if (!storedToken) setToken('');
         
@@ -45,7 +45,9 @@ const Index = () => {
             {/* <Route path='/profile' exact render={() => <Profile /> } /> */}
             <Route path='/activities' exact render={() => <Activities token={token} activities={activities} /> } />
             {/* <Route path='/routines' exact render={() => <Routines /> } /> */}
-            {/* <Route path='/myroutines' exact render={() => <MyRoutines /> } /> */}
+            { !!token === true &&
+                <Route path='/myroutines' exact render={(routeProps) => <MyRoutines {...routeProps} isLoggedIn={!!token} /> } />
+            }
             {/* <Route path='/logout' exact render={() => <Logout /> } /> */}
             {/* <Footer /> */}
         </BrowserRouter>
