@@ -16,7 +16,7 @@ const Activities = ({ token, activities }) => {
         <form onSubmit={async (e) => {
             e.preventDefault();
             try {
-                const res = await fetch(`${API_URL}/api/activities`, {
+                const res = await fetch('http://fitnesstrac-kr.herokuapp.com/api/activities', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -28,15 +28,22 @@ const Activities = ({ token, activities }) => {
                     })
                 })
                 const data = await res.json();
-                return data;
+                if (data.error) {
+                    alert('That activity already exists')
+                    setName('')
+                    setDescription('')
+                } else {
+                    const data = await handleFetchingActivities();
+                    setActivities(data);
+                    setName('')
+                    setDescription('')
+                }
+                
             } catch (err) {
                 console.error(err)
             }
             // handleNewActivitySubmit(name, description)
-            // const data = await handleFetchingActivities
-            // setActivities(data);
-            // setName('')
-            // setDescription('')
+        
         }}>
         <div>
             <label>Name:</label>
@@ -60,6 +67,7 @@ const Activities = ({ token, activities }) => {
                 onChange={e => setDescription(e.target.value)}
             />
         </div>
+        <button>Submit!</button>
         </form>
 
 

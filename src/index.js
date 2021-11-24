@@ -22,15 +22,17 @@ const Index = () => {
 
   useEffect(() => {
     async function getActivities(){
-        fetch('http://fitnesstrac-kr.herokuapp.com/api/activities', {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }).then(response => response.json())
-        .then(result => {
-          setActivities(result);
-        })
-        .catch(console.error);
+        const res =  await fetch('http://fitnesstrac-kr.herokuapp.com/api/activities', {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }).then(response => response.json())
+          .then(result => {
+            return result;
+          })
+          .catch(console.error);
+        console.log(res);
+        setActivities(res);
     }
     getActivities();
   }, [])

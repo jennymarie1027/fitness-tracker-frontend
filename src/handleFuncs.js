@@ -91,37 +91,18 @@ async function handleFetchingUserInfo(token) {
     }
 }
 
-const handleFetchingActivities = async (token) => {
-    if (!token) {
-        try {
-            const res = await fetch(`${API_URL}/api/activities`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            } );
-            const data = await res.json();
-            return data
-        } catch(err) {
-            console.error(err);
-        }
-    } else if (token) {
-        try {
-            const res = await fetch(`${API_URL}/activities`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + token
-                }
-            } );
-            const data = await res.json();
-            return data
-        } catch(err) {
-            console.error(err);
-        }
-    }
-   
-}
+async function handleFetchingActivities()  {
+    fetch('http://fitnesstrac-kr.herokuapp.com/api/activities', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then(response => response.json())
+      .then(result => {
+        return result;
+      })
+      .catch(console.error);
+  }
+
 
 export {
     handleHeaders,
@@ -129,5 +110,5 @@ export {
     handleLogin,
     handleLogout,
     handleFetchingUserInfo,
-    handleFetchingActivities,
+    handleFetchingActivities
 }
