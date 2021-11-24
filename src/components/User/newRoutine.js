@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 const { API_URL } = '../constants.js';
 
-const MyRoutines = ({isLoggedIn}) => {
+const newRoutine = ({setMyRoutines}) => {
     const [routineName, setRoutineName] = useState('')
     const [routineGoal, setRoutineGoal] = useState('')
     const [isPublic, setIsPublic] = useState(false)
-    const [myRoutines, setMyRoutines] = useState([])
 
     return (
         <div>
-            <h1>My routines</h1>
             <form
                 onSubmit={async (e) => {
                     e.preventDefault();
@@ -36,7 +34,7 @@ const MyRoutines = ({isLoggedIn}) => {
                     }
                 }}
             >
-                {/* <div><h2>Add New Routine</h2></div> */}
+                <h2>Add New Routine</h2>
                 <div>
                    <input 
                         type='text'
@@ -76,4 +74,4 @@ const MyRoutines = ({isLoggedIn}) => {
     )
 }
 
-export default MyRoutines;
+export default newRoutine;
