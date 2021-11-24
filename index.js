@@ -21,21 +21,22 @@ const Index = () => {
   }, [])
     return (
         <BrowserRouter>
-            {/* <Header token={token} /> */}
-            <Route path='/login' exact render={(routeProps) => <h1>LOGIN</h1> } />
+            <Header token={token} />
+            <Route path='/login' exact render={() => <Login setToken={setToken} /> } />
             {/* <Route path='/profile' exact render={() => <Profile /> } /> */}
             {/* <Route path='/activities' exact render={() => <Activities /> } /> */}
             {/* <Route path='/routines' exact render={() => <Routines /> } /> */}
             {/* <Route path='/myroutines' exact render={() => <MyRoutines /> } /> */}
             {/* <Route path='/logout' exact render={() => <Logout /> } /> */}
-            {/* <Footer /> */}
+            <Footer />
         </BrowserRouter>
     )
 }
 
 ReactDOM.render(
-
+    // <BrowserRouter>
+      // <Route path='/' component={Index} />,
       <Index />,
-
+    // </BrowserRouter>,
   document.getElementById('app')
 );

@@ -1,6 +1,5 @@
-// API_URL = ...put link to heroku backend here ....
-// example from strangers things: const API_URL = 'https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT';
+const API_URL = 'https://fitnesstrac-kr.herokuapp.com/';
 
-// export {
-//     API_URL
-// }
+export {
+    API_URL
+}

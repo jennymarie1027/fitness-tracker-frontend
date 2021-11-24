@@ -28,7 +28,7 @@ const handleLogout = () => {
     localStorage.removeItem('token')
 }
 
-async function handleLogin(username, password, setToken){
+async function handleLogin(username, password){
     try {
         const res = await fetch(`${API_URL}/users/login`, {
             method: 'POST',
@@ -43,15 +43,13 @@ async function handleLogin(username, password, setToken){
               })
         })
         const parsedData = await res.json();
-        const token = parsedData.data.token;
-        setToken(token);
-        localStorage.setItem('token', token);
+        return parsedData;
     } catch(err) {
         console.error(err);
     }
 }
 
-async function handleRegister(username, password, confirmedPassword, setToken){
+async function handleRegister(username, password, confirmedPassword){
     try {
         if ((password === confirmedPassword) && (password.length >= minPasswordLength)) {
         const res = await fetch(`${API_URL}/users/register`, {
@@ -67,9 +65,7 @@ async function handleRegister(username, password, confirmedPassword, setToken){
             })
           })
         const parsedData = await res.json();
-        const token = parsedData.data.token;
-        setToken(token);
-        localStorage.setItem('token', token);
+        return parsedData;
         } else {
           alert(`Please make sure your passwords match and are at least ${minPasswordLength} characters long`)
         } 
