@@ -14,7 +14,10 @@ const Login = ({ match, history, setToken, isLoggedIn }) => {
         <form
             onSubmit={async (e) => {
                 e.preventDefault();
-                if (match.url === './register') await handleRegister(username, password, confirmedPassword, setToken);
+                if (match.url === './register') {
+                    const parsedData = await handleRegister(username, password, confirmedPassword);
+                    console.log('parsedData = ', parsedData);
+                }
                 if (match.url === './login') await handleLogin(username, password, setToken);
             }}
         >
