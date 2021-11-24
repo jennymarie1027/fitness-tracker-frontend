@@ -14,11 +14,20 @@ const Login = ({ match, history, setToken, isLoggedIn }) => {
         <form
             onSubmit={async (e) => {
                 e.preventDefault();
-                if (match.url === './register') {
-                    const parsedData = await handleRegister(username, password, confirmedPassword);
-                    console.log('parsedData = ', parsedData);
+                if (match.path === '/register') {
+                    try {
+                        await handleRegister(username, password, setToken);
+                    } catch (error) {
+                        console.log(error)
+                    }
+                } 
+                if (match.url === '/login') {
+                    try {
+                        await handleLogin(username, password, setToken)
+                    } catch (error) {
+                        console.log(error)
+                    }
                 }
-                if (match.url === './login') await handleLogin(username, password, setToken);
             }}
         >
         <h1 className='m-3 '>{match.url === '/login' ? 'Please Sign In' : 'Make An Account'}</h1>

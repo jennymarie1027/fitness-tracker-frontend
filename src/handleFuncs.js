@@ -30,7 +30,7 @@ const handleLogout = () => {
 
 async function handleLogin(username, password, setToken){
     try {
-        const res = await fetch(`${API_URL}/users/login`, {
+        const res = await fetch(`${API_URL}/api/users/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -41,19 +41,19 @@ async function handleLogin(username, password, setToken){
               })
         })
         const parsedData = await res.json();
-        // const token = parsedData.data.token;
-        // setToken(token);
-        // localStorage.setItem('token', token);
+        const token = parsedData.token;
+        setToken(token);
+        localStorage.setItem('token', token);
         return parsedData;
     } catch(err) {
         console.error(err);
     }
 }
 
-async function handleRegister(username, password, confirmedPassword){
+async function handleRegister(username, password, setToken){
     try {
-        if ((password === confirmedPassword) && (password.length >= 8)) {
-        const res = await fetch(`${API_URL}/users/register`, {
+        if (password.length >= 8) {
+        const res = await fetch(`${API_URL}/api/users/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -64,9 +64,9 @@ async function handleRegister(username, password, confirmedPassword){
             })
           })
         const parsedData = await res.json();
-        // const token = parsedData.data.token;
-        // setToken(token);
-        // localStorage.setItem('token', token);
+        const token = parsedData.token;
+        setToken(token);
+        localStorage.setItem('token', token);
         return parsedData;
         } else {
           alert(`Please make sure your passwords match and are at least ${minPasswordLength} characters long`)
