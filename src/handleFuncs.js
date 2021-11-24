@@ -93,10 +93,43 @@ async function handleFetchingUserInfo(token) {
     }
 }
 
+const handleFetchingActivities = async (token) => {
+    if (!token) {
+        try {
+            const res = await fetch(`${API_URL}/api/activities`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            } );
+            const data = await res.json();
+            return data
+        } catch(err) {
+            console.error(err);
+        }
+    } else if (token) {
+        try {
+            const res = await fetch(`${API_URL}/activities`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }
+            } );
+            const data = await res.json();
+            return data
+        } catch(err) {
+            console.error(err);
+        }
+    }
+   
+}
+
 export {
     handleHeaders,
     handleRegister,
     handleLogin,
     handleLogout,
     handleFetchingUserInfo,
+    handleFetchingActivities,
 }
