@@ -69,7 +69,7 @@ const Login = ({ match, history, setToken, isLoggedIn }) => {
                     />
                 </div>
             ) : null}
-            <button type='submit' onClick={() => {isLoggedIn && history.push('/')}}>
+            <button type='submit' onClick={() => {isLoggedIn && history.push('/activities')}}>
                 Submit
             </button>
             {
