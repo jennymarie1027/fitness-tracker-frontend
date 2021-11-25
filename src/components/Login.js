@@ -4,7 +4,7 @@ import { handleLogin, handleRegister} from '../handleFuncs';
 const { API_URL } = '../constants.js';
 
 // potentially make the component async?
-const Login = ({ match, history, setToken, isLoggedIn }) => {
+const Login = ({ match, history, setToken, token }) => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -14,19 +14,21 @@ const Login = ({ match, history, setToken, isLoggedIn }) => {
         <form
             onSubmit={async (e) => {
                 e.preventDefault();
-                if (match.path === '/register') {
+                if (match.url === '/register') {
                     try {
-                        await handleRegister(username, password, setToken);
+                        handleRegister(username, password, setToken, setUsername, setPassword, setConfirmedPassword);
                     } catch (error) {
                         console.log(error)
                     }
                 } 
                 if (match.url === '/login') {
                     try {
-                        await handleLogin(username, password, setToken)
+                        const res = await handleLogin(username, password, setToken, setUsername, setPassword)
+                        if (res.token) history.push('/activities')
                     } catch (error) {
                         console.log(error)
                     }
+
                 }
             }}
         >
@@ -69,7 +71,7 @@ const Login = ({ match, history, setToken, isLoggedIn }) => {
                     />
                 </div>
             ) : null}
-            <button type='submit' onClick={() => {isLoggedIn && history.push('/activities')}}>
+            <button type='submit' >
                 Submit
             </button>
             {
@@ -84,3 +86,5 @@ const Login = ({ match, history, setToken, isLoggedIn }) => {
 }
 
 export default Login;
+
+// onClick={() => {isLoggedIn && history.push('/activities')}}
