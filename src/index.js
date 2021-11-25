@@ -48,7 +48,7 @@ const Index = () => {
             { !!token === true &&
                 <Route path='/myroutines' exact render={(routeProps) => <MyRoutines {...routeProps} isLoggedIn={!!token} /> } />
             }
-            {/* <Route path='/logout' exact render={() => <Logout /> } /> */}
+            <Route path='/logout' exact render={(routeProps) => <Logout {...routeProps} setToken={setToken} /> } />
             {/* <Footer /> */}
         </BrowserRouter>
     )
