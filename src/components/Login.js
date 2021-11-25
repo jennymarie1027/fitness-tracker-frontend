@@ -21,7 +21,7 @@ const Login = ({ match, history, setToken, isLoggedIn }) => {
                         console.log(error)
                     }
                 } 
-                if (match.url === '/login') {
+                if (match.path === '/login') {
                     try {
                         await handleLogin(username, password, setToken)
                     } catch (error) {
@@ -69,8 +69,9 @@ const Login = ({ match, history, setToken, isLoggedIn }) => {
                     />
                 </div>
             ) : null}
-            <button type='submit' onClick={() => {isLoggedIn && history.push('/myroutines/' + localStorage.getItem('username'))}}>
+            <button type='submit' onClick={() => {isLoggedIn && history.push('/activities')}}>
                 Submit
+                {/* myroutines/' + localStorage.getItem('username') */}
             </button>
             {
                   match.url === '/register' ?

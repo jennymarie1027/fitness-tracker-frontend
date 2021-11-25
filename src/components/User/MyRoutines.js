@@ -10,19 +10,6 @@ const MyRoutines = ({isLoggedIn, routines, match}) => {
         const username = match.params.username
         console.log(username)
 
-        // const fetchedUserRoutines = handleFetchingUserRoutines(username)
-        async function handleFetchingUserRoutines(username) {
-            fetch(`${API_URL}users/${username}/routines`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }).then(response => response.json())
-            .then(result => {
-                console.log("HANDLE FETCHING USER ROUTINES HAS FIRED:", result)
-                return result;
-            })
-            .catch(console.error);
-        }
         const fetchedUserRoutines = handleFetchingUserRoutines(username)
         setMyRoutines(fetchedUserRoutines)
         console.log(fetchedUserRoutines)

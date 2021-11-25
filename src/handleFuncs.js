@@ -2,8 +2,6 @@
 // -------------** the functions below are pasted from stranger's things, they seem like a good start to handling whether a user is logged in or not for fitness tracker ** --------------
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// TO DO ---console.log these functions and make sure they are firing 
-
 import { API_URL } from './constants.js';
 
 function handleHeaders(token) {
@@ -43,10 +41,10 @@ async function handleLogin(username, password, setToken){
               })
         })
         const parsedData = await res.json();
-        const token = parsedData.token;
+        const token = parsedData.data.token;
         setToken(token);
-        console.log("HANDLE LOGIN HAS FIRED")
 
+        console.log("Token is:", token)
         localStorage.setItem('token', token);
         return parsedData;
     } catch(err) {
@@ -57,23 +55,23 @@ async function handleLogin(username, password, setToken){
 async function handleRegister(username, password, setToken){
     try {
         if (password.length >= 8) {
-        const res = await fetch(`${API_URL}/api/users/register`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username,
-                password
+            const res = await fetch(`${API_URL}/api/users/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password,
+                })
             })
-          })
-        const parsedData = await res.json();
-        const token = parsedData.token;
-        setToken(token);
-        localStorage.setItem('token', token);
-        return parsedData;
+            const parsedData = await res.json();
+            const token = parsedData.token;
+            setToken(token);
+            localStorage.setItem('token', token);
+            return parsedData;
         } else {
-          alert(`Please make sure your passwords match and are at least ${minPasswordLength} characters long`)
+          alert(`Please make sure your passwords match and are at least 8 characters long`)
         } 
     } catch(err) {
         console.error(err);
@@ -82,7 +80,7 @@ async function handleRegister(username, password, setToken){
 
 async function handleFetchingUserInfo(token) {
     try {
-        const res = await fetch(`${API_URL}/users/me`, {
+        const res = await fetch(`${API_URL}/api/users/me`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
@@ -109,16 +107,23 @@ async function handleFetchingActivities()  {
 
   async function handleFetchingUserRoutines(username) {
       console.log("HANDLE FETCHED USER ROUTINES FIRED")
-    // fetch(`${API_URL}users/${username}/routines`, {
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    // }).then(response => response.json())
-    // .then(result => {
-    //     console.log("HANDLE FETCHING USER ROUTINES HAS FIRED:", result)
-    //     return result;
-    // })
-    // .catch(console.error);
+
+    try {
+        const result = await fetch(`${API_URL}users/${username}/routines`, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+    
+        const data = await result.json();
+    
+        console.log("USER ROUTINES DATA IS:", data)
+    
+        return data;
+    } catch (error) {
+        console.error(error)
+    }
+    
 }
 
 export {
