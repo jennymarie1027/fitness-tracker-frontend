@@ -39,7 +39,7 @@ const Index = () => {
   
     return (
         <BrowserRouter>
-            {/* <Header token={token} /> */}
+            <Header token={token} />
             <Route path='/login' exact render={(routeProps) => <Login {...routeProps} setToken={setToken} token={token}/> } />
             <Route path='/register' exact render={(routeProps) => <Login {...routeProps} setToken={setToken} /> } />
             {/* <Route path='/profile' exact render={() => <Profile /> } /> */}
