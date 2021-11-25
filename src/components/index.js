@@ -6,6 +6,7 @@ import Logout from './Logout';
 import MyRoutines from './User/MyRoutines';
 import Profile from './Profile';
 import Routines from './Routines';
+import Homepage from './Homepage';
 
 export {
     Activities,
@@ -15,5 +16,6 @@ export {
     Logout,
     MyRoutines,
     Profile,
-    Routines
+    Routines,
+    Homepage
 }

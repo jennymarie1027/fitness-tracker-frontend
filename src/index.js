@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter, Route } from 'react-router-dom';
-import { Activities, Footer, Header, Login, Logout, MyRoutines, Profile, Routines } from './components'
+import { Activities, Footer, Header, Login, Logout, MyRoutines, Profile, Routines, Homepage } from './components'
 const { handleFetchingActivities } = './handleFuncs.js'
 const { API_URL } = './constants.js'
 const Index = () => {
@@ -49,6 +49,7 @@ const Index = () => {
                 <Route path='/myroutines' exact render={(routeProps) => <MyRoutines {...routeProps} isLoggedIn={!!token} /> } />
             }
             <Route path='/logout' exact render={(routeProps) => <Logout {...routeProps} setToken={setToken} /> } />
+            <Route path='/' exact render={() => <Homepage token={token} />}/>
             {/* <Footer /> */}
         </BrowserRouter>
     )
