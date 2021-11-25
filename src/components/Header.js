@@ -21,15 +21,14 @@ const Header = ({ token }) => {
             <div className='collapse navbar-collapse' id='navbarNav'>
                 <Link to='/' className='nav-link'>Home</Link>
                 <Link to='/routines' className='nav-link'> Routines </Link>
-                <Link to='/myroutines' className='nav-link'> My Routines </Link>
                 <Link to='/activities' className='nav-link'> Activities </Link>
             {!token ? ( 
-            <>
+                <>
                 <Link to='/login' className='nav-link'> Login </Link>
             </>
             ) : ( 
-            <>
-                
+                <>
+                <Link to='/myroutines' className='nav-link'> My Routines </Link>
                 <Link to='/profile' className='nav-link'> Profile </Link>
                 <Link to='/logout' className='nav-link'> Logout </Link>
              </> 
