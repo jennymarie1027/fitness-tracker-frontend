@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 const { API_URL } = '../constants.js';
 
-const newRoutine = ({setMyRoutines}) => {
+const NewRoutine = ({setMyRoutines}) => {
     const [routineName, setRoutineName] = useState('')
     const [routineGoal, setRoutineGoal] = useState('')
     const [isPublic, setIsPublic] = useState(false)
@@ -74,4 +74,4 @@ const newRoutine = ({setMyRoutines}) => {
     )
 }
 
-export default newRoutine;
+export default NewRoutine;

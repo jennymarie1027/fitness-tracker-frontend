@@ -2,6 +2,8 @@
 // -------------** the functions below are pasted from stranger's things, they seem like a good start to handling whether a user is logged in or not for fitness tracker ** --------------
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// TO DO ---console.log these functions and make sure they are firing 
+
 import { API_URL } from './constants.js';
 
 function handleHeaders(token) {
@@ -43,6 +45,8 @@ async function handleLogin(username, password, setToken){
         const parsedData = await res.json();
         const token = parsedData.token;
         setToken(token);
+        console.log("HANDLE LOGIN HAS FIRED")
+
         localStorage.setItem('token', token);
         return parsedData;
     } catch(err) {
@@ -103,6 +107,19 @@ async function handleFetchingActivities()  {
       .catch(console.error);
   }
 
+  async function handleFetchingUserRoutines(username) {
+      console.log("HANDLE FETCHED USER ROUTINES FIRED")
+    // fetch(`${API_URL}users/${username}/routines`, {
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //     },
+    // }).then(response => response.json())
+    // .then(result => {
+    //     console.log("HANDLE FETCHING USER ROUTINES HAS FIRED:", result)
+    //     return result;
+    // })
+    // .catch(console.error);
+}
 
 export {
     handleHeaders,
@@ -110,5 +127,6 @@ export {
     handleLogin,
     handleLogout,
     handleFetchingUserInfo,
-    handleFetchingActivities
+    handleFetchingActivities,
+    handleFetchingUserRoutines
 }
