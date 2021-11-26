@@ -43,7 +43,7 @@ const Index = () => {
             <Route path='/login' exact render={(routeProps) => <Login {...routeProps} setToken={setToken} token={token}/> } />
             <Route path='/register' exact render={(routeProps) => <Login {...routeProps} setToken={setToken} /> } />
             {/* <Route path='/profile' exact render={() => <Profile /> } /> */}
-            <Route path='/activities' exact render={() => <Activities token={token} activities={activities} /> } />
+            <Route path='/activities' exact render={() => <Activities token={token} activities={activities} setActivities={setActivities}/> } />
             {/* <Route path='/routines' exact render={() => <Routines /> } /> */}
             { !!token === true &&
                 <Route path='/myroutines' exact render={(routeProps) => <MyRoutines {...routeProps} isLoggedIn={!!token} /> } />

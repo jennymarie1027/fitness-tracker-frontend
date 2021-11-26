@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
-
-const CreateActivity = () => {
+import React, { useState, useEffect } from 'react'
+const { handleFetchingActivities } = '../handleFuncs.js'
+const CreateActivity = ({ setActivities, token, activities }) => {
 
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
+
+    useEffect(() => {
+        setActivities(activities)
+    }, [description])
 
     return (
         <div>
@@ -28,16 +32,24 @@ const CreateActivity = () => {
                     setName('')
                     setDescription('')
                 } else {
-                    const data = await handleFetchingActivities();
-                    setActivities(data);
+                    // const data = await handleFetchingActivities();
+                    const res =  await fetch('http://fitnesstrac-kr.herokuapp.com/api/activities', {
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                      }).then(response => response.json())
+                      .then(result => {
+                        return result;
+                      })
+                      .catch(console.error);
+                    console.log(res);
+                    setActivities(res);
                     setName('')
                     setDescription('')
                 }
-                
             } catch (err) {
                 console.error(err)
             }
-            // handleNewActivitySubmit(name, description)
         
         }}>
         <div>

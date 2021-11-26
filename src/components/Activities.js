@@ -5,11 +5,11 @@ const { handleFetchingActivities } = '../handleFuncs.js'
 
 
 
-const Activities = ({ token, activities }) => {
+const Activities = ({ token, activities, setActivities }) => {
     
     return (
         <main style={{margin: 4 +'em'}}>
-        { token ? <CreateActivity /> : null }
+        { token ? <CreateActivity setActivities={setActivities} token={token} activities={activities}/> : null }
 
         <h1>All Activities</h1> 
         {activities &&
