@@ -28,50 +28,64 @@ const handleLogout = () => {
     localStorage.removeItem('token')
 }
 
-async function handleLogin(username, password, setToken){
+async function handleLogin(username, password, setToken, setUsername, setPassword){
     try {
-        const res = await fetch(`${API_URL}/users/login`, {
+        console.log('making fetch request...')
+        const res = await fetch(`${API_URL}/api/users/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
               },
             body: JSON.stringify({
-                user: {
                   username: username,
                   password: password
-                }
               })
         })
         const parsedData = await res.json();
-        const token = parsedData.data.token;
-        setToken(token);
-        localStorage.setItem('token', token);
+        console.log(parsedData)
+        if (parsedData.token) {
+            const token = parsedData.token;
+            setToken(token);
+            localStorage.setItem('token', token);
+            return parsedData;
+        } else {
+            alert(parsedData.error)
+            setUsername('');
+            setPassword('');
+        }
     } catch(err) {
         console.error(err);
     }
 }
 
-async function handleRegister(username, password, confirmedPassword, setToken){
+async function handleRegister(username, password, setToken, setUsername, setPassword, setConfirmedPassword){
     try {
-        if ((password === confirmedPassword) && (password.length >= minPasswordLength)) {
-        const res = await fetch(`${API_URL}/users/register`, {
+        if (password.length >= 8) {
+        const res = await fetch(`${API_URL}/api/users/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              user: {
                 username,
                 password
-              }
             })
           })
         const parsedData = await res.json();
-        const token = parsedData.data.token;
-        setToken(token);
-        localStorage.setItem('token', token);
+        console.log('parsedData = ', parsedData);
+          if (parsedData.token) {
+            const token = parsedData.token;
+            setToken(token);
+            localStorage.setItem('token', token);
+            return parsedData;
+          } else {
+              alert(parsedData.error)
+              setUsername('')
+              setPassword('')
+              setConfirmedPassword('')
+          }
         } else {
-          alert(`Please make sure your passwords match and are at least ${minPasswordLength} characters long`)
+          alert(`Please make sure your passwords match and are at least 8 characters long`)
         } 
     } catch(err) {
         console.error(err);
@@ -93,6 +107,7 @@ async function handleFetchingUserInfo(token) {
     }
 }
 
+
 export async function handleFetchingRoutines( ){
     try{
         const result = await fetch(`${API_URL}/api/routines`, { headers: { 'Content-Type': "application/json",} } )
@@ -104,7 +119,17 @@ export async function handleFetchingRoutines( ){
 }
 
 
-
+async function handleFetchingActivities()  {
+    fetch('http://fitnesstrac-kr.herokuapp.com/api/activities', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then(response => response.json())
+      .then(result => {
+        return result;
+      })
+      .catch(console.error);
+  }
 
 
 
@@ -115,4 +140,6 @@ export {
     handleLogout,
     handleFetchingUserInfo,
     handleFetchingRoutines,
+    handleFetchingActivities
+
 }

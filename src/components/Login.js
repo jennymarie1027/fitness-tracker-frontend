@@ -4,7 +4,7 @@ import { handleLogin, handleRegister} from '../handleFuncs';
 const { API_URL } = '../constants.js';
 
 // potentially make the component async?
-const Login = ({ match, history, setToken, isLoggedIn }) => {
+const Login = ({ match, history, setToken, token }) => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -14,8 +14,22 @@ const Login = ({ match, history, setToken, isLoggedIn }) => {
         <form
             onSubmit={async (e) => {
                 e.preventDefault();
-                if (match.url === './register') await handleRegister(username, password, confirmedPassword, setToken);
-                if (match.url === './login') await handleLogin(username, password, setToken);
+                if (match.url === '/register') {
+                    try {
+                        handleRegister(username, password, setToken, setUsername, setPassword, setConfirmedPassword);
+                    } catch (error) {
+                        console.log(error)
+                    }
+                } 
+                if (match.url === '/login') {
+                    try {
+                        const res = await handleLogin(username, password, setToken, setUsername, setPassword)
+                        if (res.token) history.push('/activities')
+                    } catch (error) {
+                        console.log(error)
+                    }
+
+                }
             }}
         >
         <h1 className='m-3 '>{match.url === '/login' ? 'Please Sign In' : 'Make An Account'}</h1>
@@ -57,7 +71,7 @@ const Login = ({ match, history, setToken, isLoggedIn }) => {
                     />
                 </div>
             ) : null}
-            <button type='submit' onClick={() => {isLoggedIn && history.push('/')}}>
+            <button type='submit' >
                 Submit
             </button>
             {
@@ -72,3 +86,5 @@ const Login = ({ match, history, setToken, isLoggedIn }) => {
 }
 
 export default Login;
+
+// onClick={() => {isLoggedIn && history.push('/activities')}}
