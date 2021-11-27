@@ -1,12 +1,9 @@
 import React from 'react'
 import CreateActivity from './CreateActivity';
-const { API_URL } = '../constants.js';
+const API_URL = '../constants.js';
 const { handleFetchingActivities } = '../handleFuncs.js'
 
-
-
 const Activities = ({ token, activities, setActivities }) => {
-    
     return (
         <main style={{margin: 4 +'em'}}>
         { token ? <CreateActivity setActivities={setActivities} token={token} activities={activities}/> : null }
@@ -24,7 +21,6 @@ const Activities = ({ token, activities, setActivities }) => {
            ))
            }
         </main>
-    )
-}
+    )}
 
 export default Activities

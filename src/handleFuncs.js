@@ -2,7 +2,7 @@
 // -------------** the functions below are pasted from stranger's things, they seem like a good start to handling whether a user is logged in or not for fitness tracker ** --------------
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-import { API_URL } from './constants.js';
+import API_URL from './constants.js';
 
 function handleHeaders(token) {
     let header;
@@ -108,15 +108,15 @@ async function handleFetchingUserInfo(token) {
 }
 
 
-export async function handleFetchingRoutines( ){
-    try{
-        const result = await fetch(`${API_URL}/api/routines`, { headers: { 'Content-Type': "application/json",} } )
-        const data= await result.json();
-        return data;
-    } catch(error){
-        throw error;     // use effect is catching this error
-    }
-}
+// async function handleFetchingRoutines( ){
+//     try{
+//         const result = await fetch(`${API_URL}/api/routines`, { headers: { 'Content-Type': "application/json",} } )
+//         const data= await result.json();
+//         return data;
+//     } catch(error){
+//         throw error;     // use effect is catching this error
+//     }
+// }
 
 
 async function handleFetchingActivities()  {
@@ -139,7 +139,7 @@ export {
     handleLogin,
     handleLogout,
     handleFetchingUserInfo,
-    handleFetchingRoutines,
+//    handleFetchingRoutines,
     handleFetchingActivities
 
 }

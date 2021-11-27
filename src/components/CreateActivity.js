@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-const { handleFetchingActivities } = '../handleFuncs.js'
+//const import { handleFetchingActivities } from '../handleFuncs.js';
+
 const CreateActivity = ({ setActivities, token, activities }) => {
 
     const [name, setName] = useState('')
