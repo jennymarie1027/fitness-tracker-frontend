@@ -1,77 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
+import CreateActivity from './CreateActivity';
 const { API_URL } = '../constants.js';
 const { handleFetchingActivities } = '../handleFuncs.js'
 
 
 
-const Activities = ({ token, activities }) => {
-    
-    const [name, setName] = useState('')
-    const [description, setDescription] = useState('')
+const Activities = ({ token, activities, setActivities }) => {
     
     return (
-        <main style={{marginLeft: 2+'em'}}>
-        <h1>Activities Component</h1> 
-        <h2>Create A New Activity:</h2>
-        <form onSubmit={async (e) => {
-            e.preventDefault();
-            try {
-                const res = await fetch('http://fitnesstrac-kr.herokuapp.com/api/activities', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                      },
-                    body: JSON.stringify({
-                      name: name,
-                      description: description
-                    })
-                })
-                const data = await res.json();
-                if (data.error) {
-                    alert('That activity already exists')
-                    setName('')
-                    setDescription('')
-                } else {
-                    const data = await handleFetchingActivities();
-                    setActivities(data);
-                    setName('')
-                    setDescription('')
-                }
-                
-            } catch (err) {
-                console.error(err)
-            }
-            // handleNewActivitySubmit(name, description)
-        
-        }}>
-        <div>
-            <label>Name:</label>
-            <input 
-                id='name'
-                type='text'
-                placeholder='enter activity name'
-                required
-                value={name}
-                onChange={e => setName(e.target.value)}
-            />
-        </div>
-        <div>
-            <label>Description:</label>
-            <input 
-                id='description'
-                type='text'
-                placeholder='enter activity description'
-                required
-                value={description}
-                onChange={e => setDescription(e.target.value)}
-            />
-        </div>
-        <button>Submit!</button>
-        </form>
+        <main style={{margin: 4 +'em'}}>
+        { token ? <CreateActivity setActivities={setActivities} token={token} activities={activities}/> : null }
 
-
-           {activities &&
+        <h1>All Activities</h1> 
+        {activities &&
            activities.map(activity => (
                <article key={activity.id}>
                    <div className='activityContainer'>

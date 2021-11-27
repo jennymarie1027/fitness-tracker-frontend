@@ -28,8 +28,9 @@ const handleLogout = () => {
     localStorage.removeItem('token')
 }
 
-async function handleLogin(username, password, setToken){
+async function handleLogin(username, password, setToken, setUsername, setPassword){
     try {
+        console.log('making fetch request...')
         const res = await fetch(`${API_URL}/api/users/login`, {
             method: 'POST',
             headers: {
@@ -41,18 +42,23 @@ async function handleLogin(username, password, setToken){
               })
         })
         const parsedData = await res.json();
-        const token = parsedData.data.token;
-        setToken(token);
-
-        console.log("Token is:", token)
-        localStorage.setItem('token', token);
-        return parsedData;
+        console.log(parsedData)
+        if (parsedData.token) {
+            const token = parsedData.token;
+            setToken(token);
+            localStorage.setItem('token', token);
+            return parsedData;
+        } else {
+            alert(parsedData.error)
+            setUsername('');
+            setPassword('');
+        }
     } catch(err) {
         console.error(err);
     }
 }
 
-async function handleRegister(username, password, setToken){
+async function handleRegister(username, password, setToken, setUsername, setPassword, setConfirmedPassword){
     try {
         if (password.length >= 8) {
             const res = await fetch(`${API_URL}/api/users/register`, {
@@ -65,11 +71,19 @@ async function handleRegister(username, password, setToken){
                     password: password,
                 })
             })
-            const parsedData = await res.json();
+        const parsedData = await res.json();
+        console.log('parsedData = ', parsedData);
+          if (parsedData.token) {
             const token = parsedData.token;
             setToken(token);
             localStorage.setItem('token', token);
             return parsedData;
+          } else {
+              alert(parsedData.error)
+              setUsername('')
+              setPassword('')
+              setConfirmedPassword('')
+          }
         } else {
           alert(`Please make sure your passwords match and are at least 8 characters long`)
         } 
