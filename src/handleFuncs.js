@@ -93,10 +93,26 @@ async function handleFetchingUserInfo(token) {
     }
 }
 
+export async function handleFetchingRoutines( ){
+    try{
+        const result = await fetch(`${API_URL}/api/routines`, { headers: { 'Content-Type': "application/json",} } )
+        const data= await result.json();
+        return data;
+    } catch(error){
+        throw error;     // use effect is catching this error
+    }
+}
+
+
+
+
+
+
 export {
     handleHeaders,
     handleRegister,
     handleLogin,
     handleLogout,
     handleFetchingUserInfo,
+    handleFetchingRoutines,
 }

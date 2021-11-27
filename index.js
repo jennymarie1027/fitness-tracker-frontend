@@ -7,7 +7,7 @@ import { Activities, Footer, Header, Login, Logout, MyRoutines, Profile, Routine
 const Index = () => {
     // declare state here...
     const [token, setToken] = useState('');
-
+    const [routines, setRoutines] = useState([]);
 
     // incorporate useEffect here...
     // this useEffect checks is there is a token in browser storage
@@ -25,7 +25,7 @@ const Index = () => {
             <Route path='/login' exact render={() => <Login setToken={setToken} /> } />
             {/* <Route path='/profile' exact render={() => <Profile /> } /> */}
             {/* <Route path='/activities' exact render={() => <Activities /> } /> */}
-            {/* <Route path='/routines' exact render={() => <Routines /> } /> */}
+            <Route path='/routines' exact render={() => <Routines setRoutines={setRoutines} routines={routines} /> } />
             {/* <Route path='/myroutines' exact render={() => <MyRoutines /> } /> */}
             {/* <Route path='/logout' exact render={() => <Logout /> } /> */}
             <Footer />
