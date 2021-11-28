@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import NewRoutine from './newRoutine';
 import { handleFetchingUserRoutines } from '../../handleFuncs';
-const { API_URL } = '../constants.js';
 
-const MyRoutines = ({isLoggedIn, routines, match}) => {
-    const [myRoutines, setMyRoutines] = useState([])
+const MyRoutines = ({myRoutines, setMyRoutines, match}) => {
 
-    useEffect(() => {
+    useEffect(async () => {
         const username = match.params.username
-        console.log(username)
+        await handleFetchingUserRoutines(username, setMyRoutines)
 
-        const fetchedUserRoutines = handleFetchingUserRoutines(username)
-        setMyRoutines(fetchedUserRoutines)
-        console.log(fetchedUserRoutines)
-        console.log(myRoutines)
-
-        return myRoutines
     }, [])
+
+    console.log(myRoutines)
 
     return (
         <div>

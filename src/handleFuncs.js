@@ -108,32 +108,39 @@ async function handleFetchingUserInfo(token) {
 }
 
 async function handleFetchingActivities()  {
-    fetch('http://fitnesstrac-kr.herokuapp.com/api/activities', {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }).then(response => response.json())
-      .then(result => {
-        return result;
-      })
-      .catch(console.error);
+    try {
+        const res = await fetch(`${API_URL}/api/activities`, {
+                headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        const data = await res.json();
+        return data
+    }
+    catch (error) {
+        (console.error);
+    }
   }
 
-  async function handleFetchingUserRoutines(username) {
-      console.log("HANDLE FETCHED USER ROUTINES FIRED")
-
+  async function handleFetchingUserRoutines(username, setMyRoutines) {
     try {
-        const result = await fetch(`${API_URL}users/${username}/routines`, {
+        const result = await fetch(`${API_URL}/api/users/${username}/routines`, {
             headers: {
                 'Content-Type': 'application/json',
             },
         })
     
         const data = await result.json();
-    
-        console.log("USER ROUTINES DATA IS:", data)
-    
-        return data;
+        if (data.length) {
+            setMyRoutines(data)
+            return data;
+        } else {
+            return (
+                <div>
+                    <h1>You don't have any routines yet</h1>
+                </div>
+            )
+        }
     } catch (error) {
         console.error(error)
     }

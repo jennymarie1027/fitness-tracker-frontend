@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { handleLogin, handleRegister} from '../handleFuncs';
+import { handleLogin, handleRegister } from '../handleFuncs';
 const { API_URL } = '../constants.js';
 
 // potentially make the component async?
@@ -16,7 +16,8 @@ const Login = ({ match, history, setToken, token }) => {
                 e.preventDefault();
                 if (match.url === '/register') {
                     try {
-                        handleRegister(username, password, setToken, setUsername, setPassword, setConfirmedPassword);
+                        const res = await handleRegister(username, password, setToken, setUsername, setPassword, setConfirmedPassword);
+                        if (res.token) history.push('/activities')
                     } catch (error) {
                         console.log(error)
                     }

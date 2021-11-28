@@ -10,7 +10,7 @@ const NewRoutine = ({setMyRoutines}) => {
         <div>
             <form
                 onSubmit={async (e) => {
-                    e.preventDefault();
+                    //e.preventDefault();
 
                     try {
                         const response = await fetch(

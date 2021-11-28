@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter, Route } from 'react-router-dom';
 import { Activities, Footer, Header, Login, Logout, MyRoutines, Profile, Routines, Homepage } from './components'
-const { handleFetchingActivities } = './handleFuncs.js'
-const { API_URL } = './constants.js'
+
 const Index = () => {
     // try to figure out why handleFetchingActivities is not working in the useeffect
     const [token, setToken] = useState('');
     const [activities, setActivities] = useState([]);
+    const [myRoutines, setMyRoutines] = useState([]);
 
     // incorporate useEffect here...
     // this useEffect checks is there is a token in browser storage
@@ -36,8 +36,6 @@ const Index = () => {
   }
   getActivities();
   }, [])
-
-
   
     return (
         <BrowserRouter>
@@ -48,7 +46,7 @@ const Index = () => {
             <Route path='/activities' exact render={() => <Activities token={token} activities={activities} setActivities={setActivities}/> } />
             {/* <Route path='/routines' exact render={() => <Routines /> } /> */}
             { !!token === true &&
-                <Route path='/myroutines' exact render={(routeProps) => <MyRoutines {...routeProps} isLoggedIn={!!token} /> } />
+                <Route path='/myroutines/:username' exact render={(routeProps) => <MyRoutines {...routeProps} isLoggedIn={!!token} myRoutines={myRoutines} setMyRoutines={setMyRoutines} /> } />
             }
             <Route path='/logout' exact render={(routeProps) => <Logout {...routeProps} setToken={setToken} /> } />
             <Route path='/' exact render={() => <Homepage token={token} />}/>
