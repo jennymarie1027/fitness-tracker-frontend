@@ -161,6 +161,24 @@ async function handleFetchingActivities()  {
     
 }
 
+async function handleFetchingSingleRoutine(userId, myRoutines){
+    console.log("Find by ID => my routines", myRoutines)
+    const myRoutine = myRoutines.find((routine) => {
+        if(routine.id === userId) {
+            console.log("handle funcs routine is", routine)
+            return routine
+        }
+    })
+}
+
+// async function handlePatchingSingleRoutine(userId) {
+//     try {
+//         const result = await fetch(`${API_URL}/api/routines/${userId}`)
+//     } catch (error) {
+        
+//     }
+// }
+
 
 export {
     handleHeaders,
@@ -169,6 +187,7 @@ export {
     handleLogout,
     handleFetchingUserInfo,
     handleFetchingActivities,
-    handleFetchingUserRoutines
+    handleFetchingUserRoutines,
+    handleFetchingSingleRoutine
 //    handleFetchingRoutines,
 }

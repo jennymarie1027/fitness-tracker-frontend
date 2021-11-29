@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import NewRoutine from './newRoutine';
 
-const MyRoutines = ({myRoutines, setMyRoutines, token}) => {
+const MyRoutines = ({myRoutines, setMyRoutines, token, history}) => {
 
     return (
         <div>

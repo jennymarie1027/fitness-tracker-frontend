@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import { handleFetchingSingleRoutine } from '../../handleFuncs';
 
-const MySingleRoutine = ({match}) => {
-    useEffect(() => {
+const MySingleRoutine = ({match, myRoutines, selectedRoutine, setSelectedRoutine}) => {
+    useEffect(async () => {
         const userId = Number(match.params.userId)
-        console.log("ID is ", userId)
-    })
+        const displayedRoutine = await handleFetchingSingleRoutine(userId, myRoutines)
+        console.log("routine is ", displayedRoutine)
+        await setSelectedRoutine(displayedRoutine)
+    }, [])
+
+    console.log("selected routine is", selectedRoutine)
 
     return (
         <div>
-            <div><h1>MY SINGLE ROUTINE IS WORKING :))))))))))))))))</h1>
-                {/* {myRoutines.map(routine => (
-                    <article key={routine.id}>
-                        <div className='routineContainer'>
-                            <h3>{routine.name}</h3>
-                            <p>{routine.goal}</p>
-                            <p><b>Creator: </b>{routine.creatorName}</p>
-                        </div>
-                    </article>
-                    ))
-                } */}
+            <div>
+                <h3>{selectedRoutine.name}</h3>
+                <p>{selectedRoutine.goal}</p>
+                <p><b>Creator: </b>{selectedRoutine.creatorName}</p>
             </div>
         </div>
     )
