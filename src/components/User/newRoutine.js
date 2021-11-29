@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { API_URL } from '../../constants';
+import API_URL from '../../constants';
 import { handleFetchingUserRoutines } from '../../handleFuncs';
 
 const NewRoutine = ({setMyRoutines, token, myRoutines}) => {
