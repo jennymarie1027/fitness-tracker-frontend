@@ -26,6 +26,7 @@ function handleHeaders(token) {
 
 const handleLogout = () => {
     localStorage.removeItem('token')
+    localStorage.removeItem('username')
 }
 
 async function handleLogin(username, password, setToken, setUsername, setPassword){
@@ -45,8 +46,11 @@ async function handleLogin(username, password, setToken, setUsername, setPasswor
         console.log(parsedData)
         if (parsedData.token) {
             const token = parsedData.token;
+            const username = parsedData.user.username
             setToken(token);
             localStorage.setItem('token', token);
+            setUsername(username)
+            localStorage.setItem('username', username)
             return parsedData;
         } else {
             alert(parsedData.error)
@@ -75,8 +79,11 @@ async function handleRegister(username, password, setToken, setUsername, setPass
         console.log('parsedData = ', parsedData);
           if (parsedData.token) {
             const token = parsedData.token;
+            const username = parsedData.user.username
             setToken(token);
             localStorage.setItem('token', token);
+            setUsername(username)
+            localStorage.setItem('username', username)
             return parsedData;
           } else {
               alert(parsedData.error)
@@ -122,25 +129,20 @@ async function handleFetchingActivities()  {
     }
   }
 
-  async function handleFetchingUserRoutines(username, setMyRoutines) {
+  async function handleFetchingUserRoutines(username, setMyRoutines, token) {
     try {
         const result = await fetch(`${API_URL}/api/users/${username}/routines`, {
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
             },
         })
     
         const data = await result.json();
-        if (data.length) {
-            setMyRoutines(data)
-            return data;
-        } else {
-            return (
-                <div>
-                    <h1>You don't have any routines yet</h1>
-                </div>
-            )
-        }
+        console.log("Fetching user routines successful")
+        console.log("data from handle funcs is ", data)
+        setMyRoutines(data)
+        return data;
     } catch (error) {
         console.error(error)
     }

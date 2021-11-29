@@ -28,7 +28,7 @@ const Header = ({ token }) => {
             </>
             ) : ( 
                 <>
-                <Link to='/myroutines/:username' className='nav-link'> My Routines </Link>
+                <Link to='/myroutines' className='nav-link'> My Routines </Link>
                 <Link to='/profile' className='nav-link'> Profile </Link>
                 <Link to='/logout' className='nav-link'> Logout </Link>
              </> 

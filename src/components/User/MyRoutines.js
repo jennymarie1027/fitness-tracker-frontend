@@ -1,21 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import NewRoutine from './newRoutine';
-import { handleFetchingUserRoutines } from '../../handleFuncs';
 
-const MyRoutines = ({myRoutines, setMyRoutines, match}) => {
-
-    useEffect(async () => {
-        const username = match.params.username
-        await handleFetchingUserRoutines(username, setMyRoutines)
-
-    }, [])
-
-    console.log(myRoutines)
+const MyRoutines = ({myRoutines, setMyRoutines, token}) => {
 
     return (
         <div>
             <h1>My routines</h1>
-            <NewRoutine setMyRoutines={setMyRoutines} />
+            <NewRoutine setMyRoutines={setMyRoutines} myRoutines={myRoutines} token={token} />
             <div>
                 {myRoutines.map(routine => (
                     <article key={routine.id}>
@@ -23,6 +14,11 @@ const MyRoutines = ({myRoutines, setMyRoutines, match}) => {
                             <h3>{routine.name}</h3>
                             <p>{routine.goal}</p>
                             <p><b>Creator: </b>{routine.creatorName}</p>
+                            <button
+                                onClick={() => {
+                                    history.push("/myroutines/" + routine.id)
+                                }}
+                            >Edit this Routine</button>
                         </div>
                     </article>
                     ))

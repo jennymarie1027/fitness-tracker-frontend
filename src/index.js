@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter, Route } from 'react-router-dom';
-import { Activities, Footer, Header, Login, Logout, MyRoutines, Profile, Routines, Homepage } from './components'
+import { Activities, Footer, Header, Login, Logout, MyRoutines, MySingleRoutine, Profile, Routines, Homepage } from './components'
 
 const Index = () => {
     // try to figure out why handleFetchingActivities is not working in the useeffect
@@ -46,8 +46,9 @@ const Index = () => {
             <Route path='/activities' exact render={() => <Activities token={token} activities={activities} setActivities={setActivities}/> } />
             {/* <Route path='/routines' exact render={() => <Routines /> } /> */}
             { !!token === true &&
-                <Route path='/myroutines/:username' exact render={(routeProps) => <MyRoutines {...routeProps} isLoggedIn={!!token} myRoutines={myRoutines} setMyRoutines={setMyRoutines} /> } />
+                <Route path='/myroutines' exact render={(routeProps) => <MyRoutines {...routeProps} isLoggedIn={!!token} myRoutines={myRoutines} setMyRoutines={setMyRoutines} token={token} /> } />
             }
+            <Route path='/myroutines/:userId' exact render={(routeProps) => <MySingleRoutine {...routeProps} />} />
             <Route path='/logout' exact render={(routeProps) => <Logout {...routeProps} setToken={setToken} /> } />
             <Route path='/' exact render={() => <Homepage token={token} />}/>
             {/* <Footer /> */}
