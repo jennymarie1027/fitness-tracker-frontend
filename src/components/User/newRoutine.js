@@ -1,41 +1,51 @@
 import React, { useState, useEffect } from 'react';
-const { API_URL } = '../constants.js';
+import API_URL from '../../constants';
+import { handleFetchingUserRoutines } from '../../handleFuncs';
 
-const newRoutine = ({setMyRoutines}) => {
+const NewRoutine = ({setMyRoutines, token, myRoutines}) => {
     const [routineName, setRoutineName] = useState('')
     const [routineGoal, setRoutineGoal] = useState('')
     const [isPublic, setIsPublic] = useState(false)
+    const username = localStorage.getItem('username')
+
+    useEffect(async () => {
+        const fetchedRoutines = await handleFetchingUserRoutines(username, setMyRoutines, token)
+        await setMyRoutines(fetchedRoutines)
+    }, [])
 
     return (
         <div>
+            <h2>Add New Routine</h2>
             <form
                 onSubmit={async (e) => {
                     e.preventDefault();
+                    console.log("Form submitted")
 
                     try {
                         const response = await fetch(
                             API_URL + '/api/routines',
                         {
                             method: "POST",
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + token
+                            },
                             body: JSON.stringify({
-                                routineName,
-                                routineGoal,
-                                isPublic
+                                name: routineName,
+                                goal: routineGoal,
+                                isPublic: isPublic
                             })
                         })
                         
                         const result = await response.json();
-                        setMyRoutines([
-                            ...myRoutines,
-                            result.data.name
-                        ])
+                        const newRoutineResult = await handleFetchingUserRoutines(username, setMyRoutines, token)
+                        
+                        console.log("API call result is", newRoutineResult)
                     } catch (error) {
                         console.error(error)
                     }
                 }}
-            >
-                <h2>Add New Routine</h2>
-                <div>
+            >                
                    <input 
                         type='text'
                         value={routineName}
@@ -44,8 +54,7 @@ const newRoutine = ({setMyRoutines}) => {
                         required
                         placeholder='Routine Name'
                    />
-                </div>
-                <div>
+                
                     <input 
                         type='text'
                         value={routineGoal}
@@ -54,24 +63,21 @@ const newRoutine = ({setMyRoutines}) => {
                         required
                         placeholder='Routine Goal'
                     />
-                </div>
-                <div>
+                
                     <input 
                         type="checkbox"
                         value={isPublic}
-                        onChange={e => setIsPublic(e.target.value)}
+                        onChange={e => setIsPublic(true)}
                         id="isPublic"
-                        required
                     >
-                        {/* <p>Public</p> */}
                     </input>
-                </div>
-                <button type='submit' value='Submit'>
-                    <label>Submit New Routine</label>
+                
+                <button>
+                    Submit New Routine
                 </button>
             </form>
         </div>
     )
 }
 
-export default newRoutine;
+export default NewRoutine;

@@ -26,6 +26,7 @@ function handleHeaders(token) {
 
 const handleLogout = () => {
     localStorage.removeItem('token')
+    localStorage.removeItem('username')
 }
 
 async function handleLogin(username, password, setToken, setUsername, setPassword){
@@ -45,8 +46,11 @@ async function handleLogin(username, password, setToken, setUsername, setPasswor
         console.log(parsedData)
         if (parsedData.token) {
             const token = parsedData.token;
+            const username = parsedData.user.username
             setToken(token);
             localStorage.setItem('token', token);
+            setUsername(username)
+            localStorage.setItem('username', username)
             return parsedData;
         } else {
             alert(parsedData.error)
@@ -61,22 +65,25 @@ async function handleLogin(username, password, setToken, setUsername, setPasswor
 async function handleRegister(username, password, setToken, setUsername, setPassword, setConfirmedPassword){
     try {
         if (password.length >= 8) {
-        const res = await fetch(`${API_URL}/api/users/register`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username,
-                password
+            const res = await fetch(`${API_URL}/api/users/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password,
+                })
             })
-          })
         const parsedData = await res.json();
         console.log('parsedData = ', parsedData);
           if (parsedData.token) {
             const token = parsedData.token;
+            const username = parsedData.user.username
             setToken(token);
             localStorage.setItem('token', token);
+            setUsername(username)
+            localStorage.setItem('username', username)
             return parsedData;
           } else {
               alert(parsedData.error)
@@ -94,7 +101,7 @@ async function handleRegister(username, password, setToken, setUsername, setPass
 
 async function handleFetchingUserInfo(token) {
     try {
-        const res = await fetch(`${API_URL}/users/me`, {
+        const res = await fetch(`${API_URL}/api/users/me`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
@@ -120,26 +127,140 @@ async function handleFetchingUserInfo(token) {
 
 
 async function handleFetchingActivities()  {
-    fetch('http://fitnesstrac-kr.herokuapp.com/api/activities', {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }).then(response => response.json())
-      .then(result => {
-        return result;
-      })
-      .catch(console.error);
+    try {
+        const res = await fetch(`${API_URL}/api/activities`, {
+                headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        const data = await res.json();
+        return data
+    }
+    catch (error) {
+        (console.error);
+    }
   }
 
+  async function handleFetchingUserRoutines(username, setMyRoutines, token) {
+    try {
+        const result = await fetch(`${API_URL}/api/users/${username}/routines`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+        })
+    
+        const data = await result.json();
+        console.log("Fetching user routines successful")
+        console.log("data from handle funcs is ", data)
+        setMyRoutines(data)
+        return data;
+    } catch (error) {
+        console.error(error)
+    }
+    
+}
+
+async function handleFetchingSingleRoutine(userId, myRoutines){
+    const myRoutine = myRoutines.find((routine) => {
+        return routine.id === userId;
+    });
+    return myRoutine || {};
+}
+
+async function handlePatchingSingleRoutine(token, userId, updateName, updateGoal) {
+    try {
+        const result = await fetch(`${API_URL}/api/routines/${userId}`, {
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({
+                name: updateName,
+                goal: updateGoal
+            })
+        })
+
+        const data = await result.json()
+        console.log("edited routine is", data)
+    } catch (error) {
+        
+    }
+}
+
+async function handleDeletingSingleRoutine(userId, token){
+    try {
+        const result = await fetch(
+            `${API_URL}/api/routines/${userId}`, {
+                method: "DELETE",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }
+            }
+        )
+    
+        const data = await result.json();
+        console.log("DELETED routine is", data) 
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+async function handleAddingRoutineActivity(userId, activityId, updateCount, updateDuration){
+    try {
+        const result = await fetch(`${API_URL}/api/routines/${userId}/activities`, {
+            method: "POST", 
+            body: JSON.stringify({
+                activityId: activityId,
+                count: updateCount,
+                duration: updateDuration
+            })
+        })
+
+        const data = await result.json();
+        console.log("added activity is", data)
+    } catch (error) {
+        
+    }
+}
+
+async function handlePatchingRoutineActivity(activityId, updateCount, updateDuration){
+    try {
+        const result = await fetch(`${API_URL}/api/api/routine_activities/${activityId}`, {
+            method: "PATCH",
+            body: JSON.stringify({
+                count: updateCount,
+                duration: updateDuration
+            })
+        })
+
+        const data = await result.json();
+        console.log("added activity is", data)
+    } catch (error) {
+        
+    }
+}
 
 
 export {
     handleHeaders,
+    //User endpoints
     handleRegister,
     handleLogin,
     handleLogout,
     handleFetchingUserInfo,
-//    handleFetchingRoutines,
-    handleFetchingActivities
-
+    //Public Activities
+    handleFetchingActivities,
+    //Public Routines
+    //User Routines
+    // handleFetchingRoutines,
+    handleFetchingUserRoutines,
+    handleFetchingSingleRoutine,
+    handleDeletingSingleRoutine,
+    handlePatchingSingleRoutine,
+    //Routine Activities 
+    handleAddingRoutineActivity,
+    handlePatchingRoutineActivity
 }

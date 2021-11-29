@@ -1,14 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import newRoutine from './newRoutine';
-const { API_URL } = '../constants.js';
+import NewRoutine from './newRoutine';
 
-const MyRoutines = ({isLoggedIn}) => {
-    const [myRoutines, setMyRoutines] = useState([])
+const MyRoutines = ({myRoutines, setMyRoutines, token, history}) => {
 
     return (
         <div>
             <h1>My routines</h1>
-            <newRoutine setMyRoutines={setMyRoutines} />
+            <NewRoutine setMyRoutines={setMyRoutines} myRoutines={myRoutines} token={token} />
+            <div>
+                {myRoutines.map(routine => (
+                    <article key={routine.id}>
+                        <div
+                            className='routineContainer'
+                            onClick={() => {
+                                    history.push("/myroutines/" + routine.id)
+                                }}>
+                            <h3>{routine.name}</h3>
+                            <p>{routine.goal}</p>
+                            <p><b>Creator: </b>{routine.creatorName}</p>
+                            {/* <h2>Activities</h2>
+                            {routine.activities ? routine.activities.map((activity) => (
+                                <div>
+                                    <h3>{activity.name}</h3>
+                                </div>
+                            )) : 
+                            <div>
+                                <h3>No activities yet!</h3>
+                            </div>} */}
+                        </div>
+                    </article>
+                    ))
+                }
+            </div>
         </div>
     )
 }
