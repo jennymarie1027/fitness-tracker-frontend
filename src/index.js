@@ -8,6 +8,7 @@ const Index = () => {
     const [token, setToken] = useState('');
     const [activities, setActivities] = useState([]);
     const [myRoutines, setMyRoutines] = useState([]);
+    const [routines, setRoutines] = useState([]);
 
     // incorporate useEffect here...
     // this useEffect checks is there is a token in browser storage
@@ -44,7 +45,7 @@ const Index = () => {
             <Route path='/register' exact render={(routeProps) => <Login {...routeProps} setToken={setToken} /> } />
             {/* <Route path='/profile' exact render={() => <Profile /> } /> */}
             <Route path='/activities' exact render={() => <Activities token={token} activities={activities} setActivities={setActivities}/> } />
-            {/* <Route path='/routines' exact render={() => <Routines /> } /> */}
+            <Route path='/routines' exact render={(routeProps) => <Routines setRoutines={setRoutines} routines={routines} {...routeProps} /> } />
             { !!token === true &&
                 <Route path='/myroutines' exact render={(routeProps) => <MyRoutines {...routeProps} isLoggedIn={!!token} myRoutines={myRoutines} setMyRoutines={setMyRoutines} token={token} /> } />
             }
