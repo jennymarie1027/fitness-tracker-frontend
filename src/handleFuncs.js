@@ -226,10 +226,10 @@ async function handleAddingRoutineActivity(userId, activityId, updateCount, upda
     }
 }
 
-async function handlePatchingRoutineActivity(activityId, activityId, updateCount, updateDuration){
+async function handlePatchingRoutineActivity(activityId, updateCount, updateDuration){
     try {
         const result = await fetch(`${API_URL}/api/api/routine_activities/${activityId}`, {
-            method="PATCH",
+            method: "PATCH",
             body: JSON.stringify({
                 count: updateCount,
                 duration: updateDuration
