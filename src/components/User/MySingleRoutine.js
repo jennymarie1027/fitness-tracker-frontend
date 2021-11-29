@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { handleFetchingSingleRoutine, handlePatchingSingleRoutine, handleDeletingSingleRoutine } from '../../handleFuncs';
+import { handleFetchingSingleRoutine, handleDeletingSingleRoutine } from '../../handleFuncs';
 import AddingRoutineActivity from './AddingRoutineActivity';
 import EditingRoutineActivity from './EditingRoutineActivity';
 import EditRoutine from './EditRoutine';
@@ -22,7 +22,7 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
 
     return (
         <div>
-            <EditRoutine token={token} selectedRoutine={selectedRoutine} userId={userId} updateName={updateName} setUpdateName={setUpdateName} updateGoal={updateGoal} setUpdateGoal={setUpdateGoal} updateIsPublic={updateIsPublic} setUpdateIsPublic={setUpdateIsPublic} />
+            {/* <EditRoutine token={token} selectedRoutine={selectedRoutine} userId={userId} updateName={updateName} setUpdateName={setUpdateName} updateGoal={updateGoal} setUpdateGoal={setUpdateGoal} updateIsPublic={updateIsPublic} setUpdateIsPublic={setUpdateIsPublic} /> */}
             <div>
                 <h1>{selectedRoutine.name}</h1>
                 <p>{selectedRoutine.goal}</p>
@@ -45,8 +45,8 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
                         <h3>No activities yet!</h3>
                     </div>
                 }
-                <EditingRoutineActivity userId={userId} updateCount={updateCount} setUpdateCount={setUpdateCount} updateDuration={updateDuration} setUpdateDuration={setUpdateDuration} />
-                <AddingRoutineActivity userId={userId} updateCount={updateCount} setUpdateCount={setUpdateCount} updateDuration={updateDuration} setUpdateDuration={setUpdateDuration}/>
+                {/* <EditingRoutineActivity userId={userId} updateCount={updateCount} setUpdateCount={setUpdateCount} updateDuration={updateDuration} setUpdateDuration={setUpdateDuration} /> */}
+                {/* <AddingRoutineActivity userId={userId} updateCount={updateCount} setUpdateCount={setUpdateCount} updateDuration={updateDuration} setUpdateDuration={setUpdateDuration}/> */}
             </div>
         </div>
     )
