@@ -10,15 +10,23 @@ const MyRoutines = ({myRoutines, setMyRoutines, token, history}) => {
             <div>
                 {myRoutines.map(routine => (
                     <article key={routine.id}>
-                        <div className='routineContainer'>
+                        <div
+                            className='routineContainer'
+                            onClick={() => {
+                                    history.push("/myroutines/" + routine.id)
+                                }}>
                             <h3>{routine.name}</h3>
                             <p>{routine.goal}</p>
                             <p><b>Creator: </b>{routine.creatorName}</p>
-                            <button
-                                onClick={() => {
-                                    history.push("/myroutines/" + routine.id)
-                                }}
-                            >Edit this Routine</button>
+                            {/* <h2>Activities</h2>
+                            {routine.activities ? routine.activities.map((activity) => (
+                                <div>
+                                    <h3>{activity.name}</h3>
+                                </div>
+                            )) : 
+                            <div>
+                                <h3>No activities yet!</h3>
+                            </div>} */}
                         </div>
                     </article>
                     ))

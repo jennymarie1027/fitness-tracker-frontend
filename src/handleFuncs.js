@@ -162,32 +162,105 @@ async function handleFetchingActivities()  {
 }
 
 async function handleFetchingSingleRoutine(userId, myRoutines){
-    console.log("Find by ID => my routines", myRoutines)
     const myRoutine = myRoutines.find((routine) => {
-        if(routine.id === userId) {
-            console.log("handle funcs routine is", routine)
-            return routine
-        }
-    })
+        return routine.id === userId;
+    });
+    return myRoutine || {};
 }
 
-// async function handlePatchingSingleRoutine(userId) {
-//     try {
-//         const result = await fetch(`${API_URL}/api/routines/${userId}`)
-//     } catch (error) {
+async function handlePatchingSingleRoutine(token, userId, updateName, updateGoal) {
+    try {
+        const result = await fetch(`${API_URL}/api/routines/${userId}`, {
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({
+                name: updateName,
+                goal: updateGoal
+            })
+        })
+
+        const data = await result.json()
+        console.log("edited routine is", data)
+    } catch (error) {
         
-//     }
-// }
+    }
+}
+
+async function handleDeletingSingleRoutine(userId, token){
+    try {
+        const result = await fetch(
+            `${API_URL}/api/routines/${userId}`, {
+                method: "DELETE",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }
+            }
+        )
+    
+        const data = await result.json();
+        console.log("DELETED routine is", data) 
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+async function handleAddingRoutineActivity(userId, activityId, updateCount, updateDuration){
+    try {
+        const result = await fetch(`${API_URL}/api/routines/${userId}/activities`, {
+            method: "POST", 
+            body: JSON.stringify({
+                activityId: activityId,
+                count: updateCount,
+                duration: updateDuration
+            })
+        })
+
+        const data = await result.json();
+        console.log("added activity is", data)
+    } catch (error) {
+        
+    }
+}
+
+async function handlePatchingRoutineActivity(activityId, activityId, updateCount, updateDuration){
+    try {
+        const result = await fetch(`${API_URL}/api/api/routine_activities/${activityId}`, {
+            method="PATCH",
+            body: JSON.stringify({
+                count: updateCount,
+                duration: updateDuration
+            })
+        })
+
+        const data = await result.json();
+        console.log("added activity is", data)
+    } catch (error) {
+        
+    }
+}
 
 
 export {
     handleHeaders,
+    //User endpoints
     handleRegister,
     handleLogin,
     handleLogout,
     handleFetchingUserInfo,
+    //Public Activities
     handleFetchingActivities,
+    //Public Routines
+    //User Routines
+    // handleFetchingRoutines,
     handleFetchingUserRoutines,
-    handleFetchingSingleRoutine
-//    handleFetchingRoutines,
+    handleFetchingSingleRoutine,
+    handleDeletingSingleRoutine,
+    handlePatchingSingleRoutine,
+    //Routine Activities 
+    handleAddingRoutineActivity,
+    handlePatchingRoutineActivity
 }

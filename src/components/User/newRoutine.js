@@ -9,7 +9,6 @@ const NewRoutine = ({setMyRoutines, token, myRoutines}) => {
     const username = localStorage.getItem('username')
 
     useEffect(async () => {
-        console.log('Use effect has fired')
         const fetchedRoutines = await handleFetchingUserRoutines(username, setMyRoutines, token)
         await setMyRoutines(fetchedRoutines)
     }, [])
