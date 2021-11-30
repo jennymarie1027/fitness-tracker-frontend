@@ -245,10 +245,15 @@ async function handleAddingRoutineActivity(routineId, activityId, updateCount, u
     }
 }
 
-async function handlePatchingRoutineActivity(activityId, updateCount, updateDuration){
+async function handlePatchingRoutineActivity(activityId, updateCount, updateDuration, token){
+    console.log("activityId, updateCount, updateDuration", activityId, updateCount, updateDuration)
     try {
-        const result = await fetch(`${API_URL}/api/api/routine_activities/${activityId}`, {
+        const result = await fetch(`${API_URL}/api/routine_activities/${activityId}`, {
             method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
             body: JSON.stringify({
                 count: updateCount,
                 duration: updateDuration
@@ -262,9 +267,18 @@ async function handlePatchingRoutineActivity(activityId, updateCount, updateDura
     }
 }
 
-async function handleDeletingRoutineActivity(routineActivityId){
+async function handleDeletingRoutineActivity(routineActivityId, token){
     try {
-        const result = await fetch(`${API_URL}/api/routine_activities/${routineActivityId}`)
+        const result = await fetch(`${API_URL}/api/routine_activities/${routineActivityId}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        })
+
+        const data = await result.json();
+        console.log("deleted routine activity is", data)
     } catch (error) {
         console.error(error)
     }

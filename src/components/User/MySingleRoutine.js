@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { handleFetchingSingleRoutine, handleDeletingSingleRoutine } from '../../handleFuncs';
+import { handleFetchingSingleRoutine, handleDeletingSingleRoutine, handleDeletingRoutineActivity } from '../../handleFuncs';
 import AddingRoutineActivity from './AddingRoutineActivity';
 import EditRoutine from './EditRoutine';
 
@@ -48,7 +48,11 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
                             history.push("/myroutines/" + routineId + "/" + activity.id)
                         }}
                     >Edit Activity</button>
-                    <button>Delete Activity</button>
+                    <button
+                        onClick={() => {
+                            handleDeletingRoutineActivity(activity.id, token)
+                        }}
+                    >Delete Activity</button>
                 </div>
                 ))) : 
                     (<div>
