@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { handlePatchingSingleRoutine } from '../../handleFuncs';
+import { handlePatchingSingleRoutine, handleFetchingSingleRoutine } from '../../handleFuncs';
 
-const EditRoutine = ({ token, selectedRoutine, routineId, updateName, setUpdateName, updateGoal, setUpdateGoal, updateIsPublic, setUpdateIsPublic }) => {
+const EditRoutine = ({ token, selectedRoutine, routineId, updateName, setUpdateName, updateGoal, setUpdateGoal, updateIsPublic, setUpdateIsPublic, myRoutines, setSelectedRoutine }) => {
     
-    // useEffect(async () => {
-    //     const displayedRoutine = await handleFetchingSingleRoutine(routineId, myRoutines)
-    //     await setSelectedRoutine(displayedRoutine)
-    // }, [])
+    useEffect(async () => {
+        const displayedRoutine = await handleFetchingSingleRoutine(routineId, myRoutines)
+        await setSelectedRoutine(displayedRoutine)
+    }, [])
+
+    console.log('selectedRoutine = ', selectedRoutine)
 
     return (
         <div>
+            <h1>EDIT ROUTINE COMPONENT</h1>
             <form
                 onSubmit={(e) => {
                     e.preventDefault()
@@ -17,6 +20,7 @@ const EditRoutine = ({ token, selectedRoutine, routineId, updateName, setUpdateN
                 }}
             >
                 <h1>Edit Routine</h1>
+                <label>Edit Routine Name:</label>
                 <input
                     type='text'
                     value={updateName}
@@ -24,6 +28,7 @@ const EditRoutine = ({ token, selectedRoutine, routineId, updateName, setUpdateN
                     placeholder={selectedRoutine.name}
                     id="updateName"
                 />
+                <label>Edit Routine Goal</label>
                 <input
                     type='text'
                     value={updateGoal}
@@ -31,13 +36,15 @@ const EditRoutine = ({ token, selectedRoutine, routineId, updateName, setUpdateN
                     placeholder={selectedRoutine.goal}
                     id="updateGoal"
                 />
-                <br/>
+                
+                <label>Edit if routine is public: </label>
                 <input 
                         type="checkbox"
                         value={updateIsPublic}
-                        onChange={e => setUpdateIsPublic(true)}
+                        onChange={() => setUpdateIsPublic(!selectedRoutine.isPublic)}
                         id="isPublic"
-                /><p>Public</p>
+                />
+                <br/>
                 <button>
                     Edit routine
                 </button>
