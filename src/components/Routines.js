@@ -26,7 +26,8 @@ const Routines = ({ routines, setRoutines}) => {
             <h1>Routines</h1>
             {routines.map((routine, index) =>{
                 
-                return(<div key={routine.id}>
+                return(
+                    <div key={routine.id}>
                     <h2>{routine.name}</h2>
                     <p>{routine.description}</p>
                     <p>{routine.duration}</p>
