@@ -142,7 +142,7 @@ async function handleFetchingActivities()  {
   }
 
   async function handleAddingActivity(name, description, token){
-    const res = await fetch('http://fitnesstrac-kr.herokuapp.com/api/activities', {
+    const res = await fetch('https://fitnesstrac-kr.herokuapp.com/api/activities', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

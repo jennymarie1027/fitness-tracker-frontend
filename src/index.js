@@ -30,7 +30,7 @@ const Index = () => {
 
   useEffect(() => {
     async function getActivities(){
-      const res =  await fetch('http://fitnesstrac-kr.herokuapp.com/api/activities', {
+      const res =  await fetch('https://fitnesstrac-kr.herokuapp.com/api/activities', {
           headers: {
             'Content-Type': 'application/json',
           },
