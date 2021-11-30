@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { handleFetchingSingleRoutine, handleDeletingSingleRoutine } from '../../handleFuncs';
+import { handleFetchingSingleRoutine, handleDeletingSingleRoutine, handleDeletingRoutineActivity } from '../../handleFuncs';
 import AddingRoutineActivity from './AddingRoutineActivity';
-import EditingRoutineActivity from './EditingRoutineActivity';
 import EditRoutine from './EditRoutine';
 
 const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, setSelectedRoutine, activities}) => {
+
     const [updateName, setUpdateName] = useState('')
     const [updateGoal, setUpdateGoal] = useState('')
     const [updateIsPublic, setUpdateIsPublic] = useState(false)
@@ -13,6 +13,7 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
     const [updateDuration, setUpdateDuration] = useState(0)
 
     const routineId = Number(match.params.routineId)
+
     
     useEffect(async () => {
         const displayedRoutine = await handleFetchingSingleRoutine(routineId, myRoutines)
@@ -22,7 +23,7 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
 
     return (
         <div>
-            {/* <EditRoutine token={token} selectedRoutine={selectedRoutine} routineId={routineId} updateName={updateName} setUpdateName={setUpdateName} updateGoal={updateGoal} setUpdateGoal={setUpdateGoal} updateIsPublic={updateIsPublic} setUpdateIsPublic={setUpdateIsPublic} /> */}
+            <EditRoutine history={history} token={token} selectedRoutine={selectedRoutine} routineId={routineId} updateName={updateName} setUpdateName={setUpdateName} updateGoal={updateGoal} setUpdateGoal={setUpdateGoal} updateIsPublic={updateIsPublic} setUpdateIsPublic={setUpdateIsPublic} />
             <div>
                 <h1>{selectedRoutine.name}</h1>
                 <p>{selectedRoutine.goal}</p>
@@ -44,10 +45,19 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
                     <p>Duration: {activity.duration}</p>
                     <button
                         onClick={() => {
-                            history.push("/myroutines/" + routineId + "/" + activity.id)
+                            history.push("/myroutines/" + routineId + "/" + activity.routineActivityId)
                         }}
                     >Edit Activity</button>
-                    <button>Delete Activity</button>
+
+                    {/* NOTE: refresh page not working (all activities disappear) 
+                        --the activity will be deleted
+                    */}
+                    <button
+                        onClick={() => {
+                            handleDeletingRoutineActivity(activity.routineActivityId, token)
+                            history.push("/myroutines/")
+                        }}
+                    >Delete Activity</button>
                 </div>
                 ))) : 
                     (<div>

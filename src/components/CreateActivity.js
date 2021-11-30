@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-//const import { handleFetchingActivities } from '../handleFuncs.js';
+import { handleFetchingActivities, handleAddingActivity } from '../handleFuncs.js';
 
 const CreateActivity = ({ setActivities, token, activities }) => {
 
@@ -16,34 +16,13 @@ const CreateActivity = ({ setActivities, token, activities }) => {
         <form onSubmit={async (e) => {
             e.preventDefault();
             try {
-                const res = await fetch('http://fitnesstrac-kr.herokuapp.com/api/activities', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                      },
-                    body: JSON.stringify({
-                      name: name,
-                      description: description
-                    })
-                })
-                const data = await res.json();
+                const data = await handleAddingActivity(name, description, token);
                 if (data.error) {
                     alert('That activity already exists')
                     setName('')
                     setDescription('')
                 } else {
-                    // const data = await handleFetchingActivities();
-                    const res =  await fetch('http://fitnesstrac-kr.herokuapp.com/api/activities', {
-                        headers: {
-                          'Content-Type': 'application/json',
-                        },
-                      }).then(response => response.json())
-                      .then(result => {
-                        return result;
-                      })
-                      .catch(console.error);
-                    console.log(res);
+                    const res = await handleFetchingActivities();
                     setActivities(res);
                     setName('')
                     setDescription('')

@@ -115,15 +115,15 @@ async function handleFetchingUserInfo(token) {
 }
 
 
-// async function handleFetchingRoutines( ){
-//     try{
-//         const result = await fetch(`${API_URL}/api/routines`, { headers: { 'Content-Type': "application/json",} } )
-//         const data= await result.json();
-//         return data;
-//     } catch(error){
-//         throw error;     // use effect is catching this error
-//     }
-// }
+async function handleFetchingRoutines( ){
+    try{
+        const result = await fetch(`${API_URL}/api/routines`, { headers: { 'Content-Type': "application/json",} } )
+        const data= await result.json();
+        return data;
+    } catch(error){
+        throw error;     // use effect is catching this error
+    }
+}
 
 
 async function handleFetchingActivities()  {
@@ -139,6 +139,22 @@ async function handleFetchingActivities()  {
     catch (error) {
         (console.error);
     }
+  }
+
+  async function handleAddingActivity(name, description, token){
+    const res = await fetch('http://fitnesstrac-kr.herokuapp.com/api/activities', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          },
+        body: JSON.stringify({
+          name: name,
+          description: description
+        })
+    })
+    const data = await res.json();
+    return data;
   }
 
   async function handleFetchingUserRoutines(username, setMyRoutines, token) {
@@ -208,6 +224,7 @@ async function handleDeletingSingleRoutine(routineId, token){
     }
 }
 
+//----Error msg: Required parameters not sent in body: activityId, count, duration-----//
 async function handleAddingRoutineActivity(routineId, activityId, updateCount, updateDuration){
     console.log("handlefuncs updatecount and duration is", updateCount, updateDuration)
     console.log("handlefuncs routineId is", routineId)
@@ -229,10 +246,14 @@ async function handleAddingRoutineActivity(routineId, activityId, updateCount, u
     }
 }
 
-async function handlePatchingRoutineActivity(activityId, updateCount, updateDuration){
+async function handlePatchingRoutineActivity(activityId, updateCount, updateDuration, token){
     try {
-        const result = await fetch(`${API_URL}/api/api/routine_activities/${activityId}`, {
+        const result = await fetch(`${API_URL}/api/routine_activities/${activityId}`, {
             method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
             body: JSON.stringify({
                 count: updateCount,
                 duration: updateDuration
@@ -246,9 +267,18 @@ async function handlePatchingRoutineActivity(activityId, updateCount, updateDura
     }
 }
 
-async function handleDeletingRoutineActivity(routineActivityId){
+async function handleDeletingRoutineActivity(routineActivityId, token){
     try {
-        const result = await fetch(`${API_URL}/api/routine_activities/${routineActivityId}`)
+        const result = await fetch(`${API_URL}/api/routine_activities/${routineActivityId}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        })
+
+        const data = await result.json();
+        console.log("deleted routine activity is", data)
     } catch (error) {
         console.error(error)
     }
@@ -263,9 +293,10 @@ export {
     handleFetchingUserInfo,
     //Public Activities
     handleFetchingActivities,
+    handleAddingActivity,
     //Public Routines
     //User Routines
-    // handleFetchingRoutines,
+    handleFetchingRoutines,
     handleFetchingUserRoutines,
     handleFetchingSingleRoutine,
     handleDeletingSingleRoutine,

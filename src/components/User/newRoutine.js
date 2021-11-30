@@ -17,6 +17,7 @@ const NewRoutine = ({setMyRoutines, token, myRoutines}) => {
         <div>
             <h2 style={{marginTop: 5 + "em"}}>Add New Routine</h2>
             <form
+                className="newRoutineContainer"
                 onSubmit={async (e) => {
                     e.preventDefault();
                     console.log("Form submitted")
@@ -53,6 +54,7 @@ const NewRoutine = ({setMyRoutines, token, myRoutines}) => {
                         id='routineName'
                         required
                         placeholder='Routine Name'
+                        className='form-control mb-2 editInput'
                    />
                 
                     <input 
@@ -62,6 +64,7 @@ const NewRoutine = ({setMyRoutines, token, myRoutines}) => {
                         id='routineGoal'
                         required
                         placeholder='Routine Goal'
+                        className='form-control mb-2 editInput'
                     />
                 
                     <input 
@@ -70,9 +73,9 @@ const NewRoutine = ({setMyRoutines, token, myRoutines}) => {
                         onChange={e => setIsPublic(true)}
                         id="isPublic"
                     >
-                    </input>
+                    </input><p>Public</p>
                 
-                <button>
+                <button className="newRoutineBtn btn btn-lg btn-block mt-4">
                     Submit New Routine
                 </button>
             </form>
