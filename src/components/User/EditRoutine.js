@@ -1,17 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { handlePatchingSingleRoutine } from '../../handleFuncs';
+import { handleFetchingSingleRoutine, handleFetchingUserRoutines } from '../../handleFuncs';
 
-const EditRoutine = ({ token, selectedRoutine, userId, updateName, setUpdateName, updateGoal, setUpdateGoal, updateIsPublic, setUpdateIsPublic }) => {
-    
+const EditRoutine = ({ match, token, selectedRoutine, myRoutines, setMyRoutines,setSelectedRoutine }) => {
+    // const username = localStorage.getItem('username');
+
+
     // useEffect(async () => {
-    //     const displayedRoutine = await handleFetchingSingleRoutine(userId, myRoutines)
-
-    //     await setSelectedRoutine(displayedRoutine)
+    //     const fetchedRoutines = await handleFetchingUserRoutines(username, setMyRoutines, token)
+    //     await setMyRoutines(fetchedRoutines)
     // }, [])
+
+    
+
+    // useEffect(async () => {
+    //         const displayedRoutine = await handleFetchingSingleRoutine(userId, myRoutines);
+            
+    //         setSelectedRoutine(displayedRoutine)
+        
+    // }, [myRoutines])
+
+
 
     return (
         <div>
-            <form
+            <h1 style={{marginTop: 5 + 'em'}}>EDITING MY SINGLE ROUTINE!! :)</h1>
+            {/* <form
                 onSubmit={(e) => {
                     e.preventDefault()
                     handlePatchingSingleRoutine(token, userId, updateName, updateGoal, updateIsPublic)
@@ -39,10 +52,8 @@ const EditRoutine = ({ token, selectedRoutine, userId, updateName, setUpdateName
                         onChange={e => setUpdateIsPublic(true)}
                         id="isPublic"
                 /><p>Public</p>
-                <button>
-                    Edit routine
-                </button>
-            </form>
+         
+            </form> */}
         </div>
     )
 }

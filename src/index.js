@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter, Route } from 'react-router-dom';
 import { Activities, Footer, Header, Login, Logout, MyRoutines, MySingleRoutine, Profile, Routines, Homepage } from './components'
-
+import EditRoutine from './components/User/EditRoutine';
+import { handleFetchingUserRoutines} from './handleFuncs';
 const Index = () => {
     // try to figure out why handleFetchingActivities is not working in the useeffect
     const [token, setToken] = useState('');
@@ -10,6 +11,7 @@ const Index = () => {
     const [myRoutines, setMyRoutines] = useState([]);
     const [routines, setRoutines] = useState([]);
     const [selectedRoutine, setSelectedRoutine] = useState({})
+
 
     // incorporate useEffect here...
     // this useEffect checks is there is a token in browser storage
@@ -38,7 +40,16 @@ const Index = () => {
   }
   getActivities();
   }, [])
-  
+
+
+    //   useEffect(async () => {
+    //     const username = localStorage.getItem('username');
+    //     const fetchedRoutines = await handleFetchingUserRoutines(username, setMyRoutines, token)
+    //     await setMyRoutines(fetchedRoutines)
+    // }, [])
+
+    
+
     return (
         <BrowserRouter>
             <Header token={token} />
@@ -50,7 +61,8 @@ const Index = () => {
             { !!token === true &&
                 <Route path='/myroutines' exact render={(routeProps) => <MyRoutines {...routeProps} isLoggedIn={!!token} myRoutines={myRoutines} setMyRoutines={setMyRoutines} token={token} /> } />
             }
-            <Route path='/myroutines/:userId' exact render={(routeProps) => <MySingleRoutine {...routeProps} token={token} selectedRoutine={selectedRoutine} setSelectedRoutine={setSelectedRoutine} myRoutines={myRoutines} />} />
+            <Route path='/myroutines/:userId' exact render={(routeProps) => <MySingleRoutine {...routeProps} token={token} selectedRoutine={selectedRoutine} setSelectedRoutine={setSelectedRoutine} setMyRoutines={setMyRoutines} myRoutines={myRoutines} />} />
+            {/* <Route path='/myroutines/:userId/edit' exact render={(routeProps) => <EditRoutine {...routeProps} token={token} myRoutines={myRoutines} setMyRoutines={setMyRoutines} setSelectedRoutine={setSelectedRoutine}/> }/> */}
             <Route path='/logout' exact render={(routeProps) => <Logout {...routeProps} setToken={setToken} /> } />
             <Route path='/' exact render={() => <Homepage token={token} />}/>
             {/* <Footer /> */}
