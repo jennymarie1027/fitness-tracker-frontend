@@ -7,6 +7,7 @@ const EditingRoutineActivity = ({ routineId, match, updateDuration, setUpdateDur
     return (
         <div>
                 <form
+                    style={{marginTop: 5 + "em"}}
                     onSubmit={async (e) => {
                         e.preventDefault()
                         await handlePatchingRoutineActivity(routineActivityId, updateCount, updateDuration)

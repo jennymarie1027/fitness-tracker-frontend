@@ -7,6 +7,7 @@ const AddingRoutineActivity = ({routineId, updateCount, setUpdateCount, updateDu
     return (
         <div>
                 <form
+                    
                     onSubmit={async (e) => {
                         e.preventDefault()
                         await handleAddingRoutineActivity(routineId, activityId, updateCount, updateDuration)
