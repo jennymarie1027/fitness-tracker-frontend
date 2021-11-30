@@ -11,6 +11,7 @@ const EditingRoutineActivity = ({ match, history, token }) => {
     return (
         <div>
                 <form
+                    style={{marginTop: 5 + "em"}}
                     className="editRoutineActivityContainer"
                     onSubmit={async (e) => {
                         e.preventDefault()

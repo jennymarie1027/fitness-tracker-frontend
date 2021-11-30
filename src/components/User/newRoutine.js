@@ -15,7 +15,7 @@ const NewRoutine = ({setMyRoutines, token, myRoutines}) => {
 
     return (
         <div>
-            <h2>Add New Routine</h2>
+            <h2 style={{marginTop: 5 + "em"}}>Add New Routine</h2>
             <form
                 className="newRoutineContainer"
                 onSubmit={async (e) => {

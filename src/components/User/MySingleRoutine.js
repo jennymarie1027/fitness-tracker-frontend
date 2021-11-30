@@ -48,9 +48,14 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
                             history.push("/myroutines/" + routineId + "/" + activity.routineActivityId)
                         }}
                     >Edit Activity</button>
+
+                    {/* NOTE: refresh page not working (all activities disappear) 
+                        --the activity will be deleted
+                    */}
                     <button
                         onClick={() => {
-                            handleDeletingRoutineActivity(activity.id, token)
+                            handleDeletingRoutineActivity(activity.routineActivityId, token)
+                            history.push("/myroutines/")
                         }}
                     >Delete Activity</button>
                 </div>

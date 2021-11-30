@@ -1,0 +1,17 @@
+Project issues:
+
+- Refreshing the page
+    - MySingleRoutine: routine activities will disappear
+    - CSS styling disappears
+
+        - Possible sources for this error:
+        - myRoutine declared in index
+        - setMyRoutines is being set in newRoutine component AND API call
+            --> handleFetchingUserRoutines() inside handleFuncs.js
+
+- API call to add activity
+    --> handleAddingRoutineActivity inside handleFuncs.js error message
+        Required parameters not sent in body: activityId, count, duration
+    
+
+
