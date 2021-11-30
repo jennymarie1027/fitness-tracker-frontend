@@ -1,34 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import { handleAddingRoutineActivity } from '../../handleFuncs';
 
-const AddingRoutineActivity = ({userId, updateCount, setUpdateCount, updateDuration, setUpdateDuration}) => {
+const AddingRoutineActivity = ({routineId, updateCount, setUpdateCount, updateDuration, setUpdateDuration, activities}) => {
+    const [activityId, setActivityId] = useState(null)
     
-    // useEffect(async () => {
-    //     const displayedRoutine = await handleFetchingSingleRoutine(userId, myRoutines)
-
-    //     await setSelectedRoutine(displayedRoutine)
-    // }, [])
-
     return (
         <div>
                 <form
                     onSubmit={async (e) => {
                         e.preventDefault()
-                        await handleAddingRoutineActivity(userId, activityId, updateCount, updateDuration)
+                        await handleAddingRoutineActivity(routineId, activityId, updateCount, updateDuration)
                     }}
                 >
                     <h1>Add activity</h1>
+                    <label>Choose an activity: </label>
+                    <select 
+                        name="activities" 
+                        id="activities" 
+                        required 
+                        onClick={(e) => {
+                            e.preventDefault();
+                            setActivityId(e.target.value)
+                        }}>
+                        {activities.map(activity => (
+                            <option value={activity.id} key={activity.id}>
+                                {activity.name}
+                            </option>
+                        ))}
+                    </select>
                     <input
-                        type='text'
+                        type='number'
                         value={updateCount}
                         onChange={e => setUpdateCount(e.target.value)}
                         id="updateCount"
+                        placeholder="Count"
                     />
                     <input
-                        type='text'
+                        type='number'
                         value={updateDuration}
                         onChange={e => setUpdateDuration(e.target.value)}
                         id="updateDuration"
+                        placeholder="Duration"
                     />
                     <button>
                         Add activity

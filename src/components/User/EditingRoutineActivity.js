@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { handlePatchingRoutineActivity } from '../../handleFuncs';
 
-const EditingRoutineActivity = ({ userId, updateDuration, setUpdateDuration, updateCount, setUpdateCount }) => {
-    
+const EditingRoutineActivity = ({ routineId, updateDuration, setUpdateDuration, updateCount, setUpdateCount }) => {
+    const routineActivityId = Number(match.params.routineActivityId)
     // useEffect(async () => {
-    //     const displayedRoutine = await handleFetchingSingleRoutine(userId, myRoutines)
+    //     const displayedRoutine = await handleFetchingSingleRoutine(routineId, myRoutines)
 
     //     await setSelectedRoutine(displayedRoutine)
     // }, [])
@@ -14,7 +14,7 @@ const EditingRoutineActivity = ({ userId, updateDuration, setUpdateDuration, upd
                 <form
                     onSubmit={async (e) => {
                         e.preventDefault()
-                        await handlePatchingRoutineActivity(activityId, activityId, updateCount, updateDuration)
+                        await handlePatchingRoutineActivity(routineActivityId, updateCount, updateDuration)
                     }}
                 >
                     <h1>Edit activity</h1>

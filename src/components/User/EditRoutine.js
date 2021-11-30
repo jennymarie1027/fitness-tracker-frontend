@@ -10,15 +10,11 @@ const EditRoutine = ({ match, token, selectedRoutine, myRoutines, setMyRoutines,
     //     await setMyRoutines(fetchedRoutines)
     // }, [])
 
+const EditRoutine = ({ token, selectedRoutine, routineId, updateName, setUpdateName, updateGoal, setUpdateGoal, updateIsPublic, setUpdateIsPublic }) => {
     
 
     // useEffect(async () => {
-    //         const displayedRoutine = await handleFetchingSingleRoutine(userId, myRoutines);
-            
-    //         setSelectedRoutine(displayedRoutine)
-        
-    // }, [myRoutines])
-
+    //     const displayedRoutine = await handleFetchingSingleRoutine(routineId, myRoutines)
 
 
     return (
@@ -27,7 +23,7 @@ const EditRoutine = ({ match, token, selectedRoutine, myRoutines, setMyRoutines,
             {/* <form
                 onSubmit={(e) => {
                     e.preventDefault()
-                    handlePatchingSingleRoutine(token, userId, updateName, updateGoal, updateIsPublic)
+                    handlePatchingSingleRoutine(token, routineId, updateName, updateGoal, updateIsPublic)
                 }}
             >
                 <h1>Edit Routine</h1>

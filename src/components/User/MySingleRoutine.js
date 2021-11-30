@@ -4,19 +4,18 @@ import AddingRoutineActivity from './AddingRoutineActivity';
 import EditingRoutineActivity from './EditingRoutineActivity';
 import EditRoutine from './EditRoutine';
 
-const MySingleRoutine = ({match, history, token, myRoutines, setMyRoutines, selectedRoutine, setSelectedRoutine}) => {
+const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, setSelectedRoutine, activities}) => {
     const [updateName, setUpdateName] = useState('')
     const [updateGoal, setUpdateGoal] = useState('')
     const [updateIsPublic, setUpdateIsPublic] = useState(false)
 
-    const [updateCount, setUpdateCount] = useState(null)
-    const [updateDuration, setUpdateDuration] = useState(null)
+    const [updateCount, setUpdateCount] = useState(0)
+    const [updateDuration, setUpdateDuration] = useState(0)
 
-    const userId = Number(match.params.userId)
-    const username = localStorage.getItem('username');
-
+    const routineId = Number(match.params.routineId)
+    
     useEffect(async () => {
-        const displayedRoutine = await handleFetchingSingleRoutine(userId, myRoutines)
+        const displayedRoutine = await handleFetchingSingleRoutine(routineId, myRoutines)
 
         await setSelectedRoutine(displayedRoutine)
     }, [])
@@ -30,14 +29,14 @@ const MySingleRoutine = ({match, history, token, myRoutines, setMyRoutines, sele
 
     return (
         <div>
-            <EditRoutine token={token} selectedRoutine={selectedRoutine} userId={userId} updateName={updateName} setUpdateName={setUpdateName} updateGoal={updateGoal} setUpdateGoal={setUpdateGoal} updateIsPublic={updateIsPublic} setUpdateIsPublic={setUpdateIsPublic} />
-            <div style={{marginTop: 5 + 'em'}}>
+            {/* <EditRoutine token={token} selectedRoutine={selectedRoutine} routineId={routineId} updateName={updateName} setUpdateName={setUpdateName} updateGoal={updateGoal} setUpdateGoal={setUpdateGoal} updateIsPublic={updateIsPublic} setUpdateIsPublic={setUpdateIsPublic} /> */}
+            <div>
                 <h1>{selectedRoutine.name}</h1>
                 <p>{selectedRoutine.goal}</p>
                 <p><b>Creator: </b>{selectedRoutine.creatorName}</p>
                 <button
                     onClick={() => {
-                        handleDeletingSingleRoutine(userId, token)
+                        handleDeletingSingleRoutine(routineId, token)
                         history.push('/myroutines')
                     }}
                 >
@@ -49,17 +48,16 @@ const MySingleRoutine = ({match, history, token, myRoutines, setMyRoutines, sele
                     }}
                 >Edit Routine</button> */}
                 <h2>Activities</h2>
-                {selectedRoutine.activities ? selectedRoutine.activities.map((activity) => (
+                {selectedRoutine.activities ? (selectedRoutine.activities.map((activity) => (
                     <div>
                         <h3>{activity.name}</h3>
                     </div>
-                )) : 
-                    <div>
+                ))) : 
+                    (<div>
                         <h3>No activities yet!</h3>
-                    </div>
+                    </div>)
                 }
-                {/* <EditingRoutineActivity userId={userId} updateCount={updateCount} setUpdateCount={setUpdateCount} updateDuration={updateDuration} setUpdateDuration={setUpdateDuration} /> */}
-                {/* <AddingRoutineActivity userId={userId} updateCount={updateCount} setUpdateCount={setUpdateCount} updateDuration={updateDuration} setUpdateDuration={setUpdateDuration}/> */}
+                <AddingRoutineActivity routineId={routineId} updateCount={updateCount} activities={activities} setUpdateCount={setUpdateCount} updateDuration={updateDuration} setUpdateDuration={setUpdateDuration}/>
             </div>
         </div>
     )
