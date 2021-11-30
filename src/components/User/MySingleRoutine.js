@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { handleFetchingSingleRoutine, handleDeletingSingleRoutine } from '../../handleFuncs';
 import AddingRoutineActivity from './AddingRoutineActivity';
-import EditingRoutineActivity from './EditingRoutineActivity';
 import EditRoutine from './EditRoutine';
 
 const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, setSelectedRoutine, activities}) => {
+
     const [updateName, setUpdateName] = useState('')
     const [updateGoal, setUpdateGoal] = useState('')
     const [updateIsPublic, setUpdateIsPublic] = useState(false)
@@ -13,6 +13,7 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
     const [updateDuration, setUpdateDuration] = useState(0)
 
     const routineId = Number(match.params.routineId)
+
     
     useEffect(async () => {
         const displayedRoutine = await handleFetchingSingleRoutine(routineId, myRoutines)
@@ -22,7 +23,7 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
 
     return (
         <div>
-            {/* <EditRoutine token={token} selectedRoutine={selectedRoutine} routineId={routineId} updateName={updateName} setUpdateName={setUpdateName} updateGoal={updateGoal} setUpdateGoal={setUpdateGoal} updateIsPublic={updateIsPublic} setUpdateIsPublic={setUpdateIsPublic} /> */}
+            <EditRoutine history={history} token={token} selectedRoutine={selectedRoutine} routineId={routineId} updateName={updateName} setUpdateName={setUpdateName} updateGoal={updateGoal} setUpdateGoal={setUpdateGoal} updateIsPublic={updateIsPublic} setUpdateIsPublic={setUpdateIsPublic} />
             <div>
                 <h1>{selectedRoutine.name}</h1>
                 <p>{selectedRoutine.goal}</p>

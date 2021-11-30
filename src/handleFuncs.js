@@ -141,6 +141,22 @@ async function handleFetchingActivities()  {
     }
   }
 
+  async function handleAddingActivity(name, description, token){
+    const res = await fetch('http://fitnesstrac-kr.herokuapp.com/api/activities', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          },
+        body: JSON.stringify({
+          name: name,
+          description: description
+        })
+    })
+    const data = await res.json();
+    return data;
+  }
+
   async function handleFetchingUserRoutines(username, setMyRoutines, token) {
     try {
         const result = await fetch(`${API_URL}/api/users/${username}/routines`, {
@@ -263,6 +279,7 @@ export {
     handleFetchingUserInfo,
     //Public Activities
     handleFetchingActivities,
+    handleAddingActivity,
     //Public Routines
     //User Routines
     // handleFetchingRoutines,
