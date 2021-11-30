@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { handlePatchingRoutineActivity } from '../../handleFuncs';
 
-const EditingRoutineActivity = ({ routineId, updateDuration, setUpdateDuration, updateCount, setUpdateCount }) => {
+const EditingRoutineActivity = ({ routineId, match, updateDuration, setUpdateDuration, updateCount, setUpdateCount }) => {
     const routineActivityId = Number(match.params.routineActivityId)
-    // useEffect(async () => {
-    //     const displayedRoutine = await handleFetchingSingleRoutine(routineId, myRoutines)
-
-    //     await setSelectedRoutine(displayedRoutine)
-    // }, [])
 
     return (
         <div>

@@ -38,8 +38,17 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
                 <h2>Activities</h2>
                 {selectedRoutine.activities ? (selectedRoutine.activities.map((activity) => (
                     <div>
-                        <h3>{activity.name}</h3>
-                    </div>
+                    <h3>{activity.name}</h3>
+                    <p>Description: {activity.description}</p>
+                    <p>Count: {activity.count}</p>
+                    <p>Duration: {activity.duration}</p>
+                    <button
+                        onClick={() => {
+                            history.push("/myroutines/" + routineId + "/" + activity.id)
+                        }}
+                    >Edit Activity</button>
+                    <button>Delete Activity</button>
+                </div>
                 ))) : 
                     (<div>
                         <h3>No activities yet!</h3>

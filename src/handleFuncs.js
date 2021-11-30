@@ -242,10 +242,17 @@ async function handlePatchingRoutineActivity(activityId, updateCount, updateDura
         const data = await result.json();
         console.log("added activity is", data)
     } catch (error) {
-        
+        console.error(error)
     }
 }
 
+async function handleDeletingRoutineActivity(routineActivityId){
+    try {
+        const result = await fetch(`${API_URL}/api/routine_activities/${routineActivityId}`)
+    } catch (error) {
+        console.error(error)
+    }
+}
 
 export {
     handleHeaders,
@@ -265,5 +272,6 @@ export {
     handlePatchingSingleRoutine,
     //Routine Activities 
     handleAddingRoutineActivity,
-    handlePatchingRoutineActivity
+    handlePatchingRoutineActivity,
+    handleDeletingRoutineActivity
 }
