@@ -161,16 +161,16 @@ async function handleFetchingActivities()  {
     
 }
 
-async function handleFetchingSingleRoutine(userId, myRoutines){
+async function handleFetchingSingleRoutine(routineId, myRoutines){
     const myRoutine = myRoutines.find((routine) => {
-        return routine.id === userId;
+        return routine.id === routineId;
     });
     return myRoutine || {};
 }
 
-async function handlePatchingSingleRoutine(token, userId, updateName, updateGoal) {
+async function handlePatchingSingleRoutine(token, routineId, updateName, updateGoal) {
     try {
-        const result = await fetch(`${API_URL}/api/routines/${userId}`, {
+        const result = await fetch(`${API_URL}/api/routines/${routineId}`, {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json',
@@ -189,10 +189,10 @@ async function handlePatchingSingleRoutine(token, userId, updateName, updateGoal
     }
 }
 
-async function handleDeletingSingleRoutine(userId, token){
+async function handleDeletingSingleRoutine(routineId, token){
     try {
         const result = await fetch(
-            `${API_URL}/api/routines/${userId}`, {
+            `${API_URL}/api/routines/${routineId}`, {
                 method: "DELETE",
                 headers: {
                     'Content-Type': 'application/json',
@@ -208,9 +208,12 @@ async function handleDeletingSingleRoutine(userId, token){
     }
 }
 
-async function handleAddingRoutineActivity(userId, activityId, updateCount, updateDuration){
+async function handleAddingRoutineActivity(routineId, activityId, updateCount, updateDuration){
+    console.log("handlefuncs updatecount and duration is", updateCount, updateDuration)
+    console.log("handlefuncs routineId is", routineId)
+    console.log("handlefuncs activityId is ", activityId)
     try {
-        const result = await fetch(`${API_URL}/api/routines/${userId}/activities`, {
+        const result = await fetch(`${API_URL}/api/routines/${routineId}/activities`, {
             method: "POST", 
             body: JSON.stringify({
                 activityId: activityId,
@@ -222,7 +225,7 @@ async function handleAddingRoutineActivity(userId, activityId, updateCount, upda
         const data = await result.json();
         console.log("added activity is", data)
     } catch (error) {
-        
+        console.error(error)
     }
 }
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter, Route } from 'react-router-dom';
 import { Activities, Footer, Header, Login, Logout, MyRoutines, MySingleRoutine, Profile, Routines, Homepage } from './components'
+import EditingRoutineActivity from './components/User/EditingRoutineActivity';
 
 const Index = () => {
     // try to figure out why handleFetchingActivities is not working in the useeffect
@@ -48,9 +49,10 @@ const Index = () => {
             <Route path='/activities' exact render={() => <Activities token={token} activities={activities} setActivities={setActivities}/> } />
             <Route path='/routines' exact render={(routeProps) => <Routines setRoutines={setRoutines} routines={routines} {...routeProps} /> } />
             { !!token === true &&
-                <Route path='/myroutines' exact render={(routeProps) => <MyRoutines {...routeProps} isLoggedIn={!!token} myRoutines={myRoutines} setMyRoutines={setMyRoutines} token={token} /> } />
+                <Route path='/myroutines' exact render={(routeProps) => <MyRoutines {...routeProps} activities={activities} isLoggedIn={!!token} myRoutines={myRoutines} setMyRoutines={setMyRoutines} token={token} /> } />
             }
-            <Route path='/myroutines/:userId' exact render={(routeProps) => <MySingleRoutine {...routeProps} token={token} selectedRoutine={selectedRoutine} setSelectedRoutine={setSelectedRoutine} myRoutines={myRoutines} />} />
+            <Route path='/myroutines/:routineId' exact render={(routeProps) => <MySingleRoutine {...routeProps} activities={activities} token={token} selectedRoutine={selectedRoutine} setSelectedRoutine={setSelectedRoutine} myRoutines={myRoutines} />} />
+            <Route path='/myroutines/:routineId/:routineActivityId' exact render ={(routeProps) => <EditingRoutineActivity {...routeProps} />}/>
             <Route path='/logout' exact render={(routeProps) => <Logout {...routeProps} setToken={setToken} /> } />
             <Route path='/' exact render={() => <Homepage token={token} />}/>
             {/* <Footer /> */}
