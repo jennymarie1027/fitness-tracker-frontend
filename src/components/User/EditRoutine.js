@@ -1,26 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { handleFetchingSingleRoutine, handleFetchingUserRoutines } from '../../handleFuncs';
-
-const EditRoutine = ({ match, token, selectedRoutine, myRoutines, setMyRoutines,setSelectedRoutine }) => {
-    // const username = localStorage.getItem('username');
-
-
-    // useEffect(async () => {
-    //     const fetchedRoutines = await handleFetchingUserRoutines(username, setMyRoutines, token)
-    //     await setMyRoutines(fetchedRoutines)
-    // }, [])
+import { handlePatchingSingleRoutine } from '../../handleFuncs';
 
 const EditRoutine = ({ token, selectedRoutine, routineId, updateName, setUpdateName, updateGoal, setUpdateGoal, updateIsPublic, setUpdateIsPublic }) => {
     
-
     // useEffect(async () => {
     //     const displayedRoutine = await handleFetchingSingleRoutine(routineId, myRoutines)
-
+    //     await setSelectedRoutine(displayedRoutine)
+    // }, [])
 
     return (
         <div>
-            <h1 style={{marginTop: 5 + 'em'}}>EDITING MY SINGLE ROUTINE!! :)</h1>
-            {/* <form
+            <form
                 onSubmit={(e) => {
                     e.preventDefault()
                     handlePatchingSingleRoutine(token, routineId, updateName, updateGoal, updateIsPublic)
@@ -48,8 +38,10 @@ const EditRoutine = ({ token, selectedRoutine, routineId, updateName, setUpdateN
                         onChange={e => setUpdateIsPublic(true)}
                         id="isPublic"
                 /><p>Public</p>
-         
-            </form> */}
+                <button>
+                    Edit routine
+                </button>
+            </form>
         </div>
     )
 }

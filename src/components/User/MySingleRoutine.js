@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { handleFetchingSingleRoutine, handleDeletingSingleRoutine, handleFetchingUserRoutines } from '../../handleFuncs';
+import { handleFetchingSingleRoutine, handleDeletingSingleRoutine } from '../../handleFuncs';
 import AddingRoutineActivity from './AddingRoutineActivity';
 import EditingRoutineActivity from './EditingRoutineActivity';
 import EditRoutine from './EditRoutine';
 
 const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, setSelectedRoutine, activities}) => {
+
     const [updateName, setUpdateName] = useState('')
     const [updateGoal, setUpdateGoal] = useState('')
     const [updateIsPublic, setUpdateIsPublic] = useState(false)
@@ -13,19 +14,13 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
     const [updateDuration, setUpdateDuration] = useState(0)
 
     const routineId = Number(match.params.routineId)
+
     
     useEffect(async () => {
         const displayedRoutine = await handleFetchingSingleRoutine(routineId, myRoutines)
 
         await setSelectedRoutine(displayedRoutine)
     }, [])
-
-    useEffect(async () => {
-        const fetchedRoutines = await handleFetchingUserRoutines(username, setMyRoutines, token)
-        await setMyRoutines(fetchedRoutines)
-    }, [])
-
-    console.log('myRoutines inside of mysingleRoutine = ', myRoutines);
 
     return (
         <div>
@@ -42,11 +37,6 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
                 >
                     Delete routine
                 </button>
-                {/* <button
-                    onClick={() => {
-                        history.push(`/myroutines/${userId}/edit`)
-                    }}
-                >Edit Routine</button> */}
                 <h2>Activities</h2>
                 {selectedRoutine.activities ? (selectedRoutine.activities.map((activity) => (
                     <div>

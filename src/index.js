@@ -12,7 +12,6 @@ const Index = () => {
     const [routines, setRoutines] = useState([]);
     const [selectedRoutine, setSelectedRoutine] = useState({})
 
-
     // incorporate useEffect here...
     // this useEffect checks is there is a token in browser storage
     useEffect(() => {
@@ -40,16 +39,7 @@ const Index = () => {
   }
   getActivities();
   }, [])
-
-
-    //   useEffect(async () => {
-    //     const username = localStorage.getItem('username');
-    //     const fetchedRoutines = await handleFetchingUserRoutines(username, setMyRoutines, token)
-    //     await setMyRoutines(fetchedRoutines)
-    // }, [])
-
-    
-
+  
     return (
         <BrowserRouter>
             <Header token={token} />

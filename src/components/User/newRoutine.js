@@ -8,10 +8,10 @@ const NewRoutine = ({setMyRoutines, token, myRoutines}) => {
     const [isPublic, setIsPublic] = useState(false)
     const username = localStorage.getItem('username')
 
-    // useEffect(async () => {
-    //     const fetchedRoutines = await handleFetchingUserRoutines(username, setMyRoutines, token)
-    //     await setMyRoutines(fetchedRoutines)
-    // }, [])
+    useEffect(async () => {
+        const fetchedRoutines = await handleFetchingUserRoutines(username, setMyRoutines, token)
+        await setMyRoutines(fetchedRoutines)
+    }, [])
 
     return (
         <div>

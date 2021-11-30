@@ -4,9 +4,9 @@ import { handleLogin, handleRegister } from '../handleFuncs';
 const { API_URL } = '../constants.js';
 
 // potentially make the component async?
-const Login = ({ match, history, setToken, token, setUsername }) => {
+const Login = ({ match, history, setToken, token }) => {
 
-    // const [username, setUsername] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmedPassword, setConfirmedPassword] = useState('');
 
