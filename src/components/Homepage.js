@@ -11,7 +11,7 @@ const Homepage = ({token}) => {
                 <button className='homepageBtn'><Link to='/routines'>View Routines</Link></button>
                 {token 
                 ? <>
-                    <button className='homepageBtn'><Link to='/profile'>View Profile</Link></button>
+                    <button className='homepageBtn'><Link to='/myRoutines'>View My Routines</Link></button>
                     <button className='homepageBtn'><Link to='/logout'>Logout</Link></button>
                 </>
                 :   <button className='homepageBtn'><Link to='/login'>Login</Link></button>

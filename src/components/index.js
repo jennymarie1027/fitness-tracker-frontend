@@ -5,7 +5,6 @@ import Login from './Login';
 import Logout from './Logout';
 import MyRoutines from './User/MyRoutines';
 import MySingleRoutine from './User/MySingleRoutine';
-import Profile from './Profile';
 import Routines from './Routines';
 import Homepage from './Homepage';
 
@@ -17,7 +16,6 @@ export {
     Logout,
     MyRoutines,
     MySingleRoutine,
-    Profile,
     Routines,
     Homepage
 }

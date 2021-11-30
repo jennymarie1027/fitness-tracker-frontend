@@ -115,15 +115,15 @@ async function handleFetchingUserInfo(token) {
 }
 
 
-// async function handleFetchingRoutines( ){
-//     try{
-//         const result = await fetch(`${API_URL}/api/routines`, { headers: { 'Content-Type': "application/json",} } )
-//         const data= await result.json();
-//         return data;
-//     } catch(error){
-//         throw error;     // use effect is catching this error
-//     }
-// }
+async function handleFetchingRoutines( ){
+    try{
+        const result = await fetch(`${API_URL}/api/routines`, { headers: { 'Content-Type': "application/json",} } )
+        const data= await result.json();
+        return data;
+    } catch(error){
+        throw error;     // use effect is catching this error
+    }
+}
 
 
 async function handleFetchingActivities()  {
@@ -282,7 +282,7 @@ export {
     handleAddingActivity,
     //Public Routines
     //User Routines
-    // handleFetchingRoutines,
+    handleFetchingRoutines,
     handleFetchingUserRoutines,
     handleFetchingSingleRoutine,
     handleDeletingSingleRoutine,

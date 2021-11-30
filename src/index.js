@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter, Route } from 'react-router-dom';
-import { Activities, Footer, Header, Login, Logout, MyRoutines, MySingleRoutine, Profile, Routines, Homepage } from './components'
+import { Activities, Footer, Header, Login, Logout, MyRoutines, MySingleRoutine, Routines, Homepage } from './components'
 import EditingRoutineActivity from './components/User/EditingRoutineActivity';
-
+import {handleFetchingRoutines} from './handleFuncs'
 const Index = () => {
     // try to figure out why handleFetchingActivities is not working in the useeffect
     const [token, setToken] = useState('');
@@ -22,6 +22,11 @@ const Index = () => {
         if (!storedToken) setToken('');
         
   }, [])
+
+  useEffect(async ()=> {                  
+    const results = await handleFetchingRoutines();     
+    setRoutines( results );
+}, []); 
 
   useEffect(() => {
     async function getActivities(){
@@ -45,7 +50,6 @@ const Index = () => {
             <Header token={token} />
             <Route path='/login' exact render={(routeProps) => <Login {...routeProps} setToken={setToken} token={token}/> } />
             <Route path='/register' exact render={(routeProps) => <Login {...routeProps} setToken={setToken} /> } />
-            {/* <Route path='/profile' exact render={() => <Profile /> } /> */}
             <Route path='/activities' exact render={() => <Activities token={token} activities={activities} setActivities={setActivities}/> } />
             <Route path='/routines' exact render={(routeProps) => <Routines setRoutines={setRoutines} routines={routines} {...routeProps} /> } />
             { !!token === true &&
