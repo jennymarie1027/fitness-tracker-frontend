@@ -16,6 +16,7 @@ const MyRoutines = ({myRoutines, setMyRoutines, token, history, activities}) => 
                             className='routineContainer'
                             onClick={() => {
                                     history.push("/myroutines/" + routine.id)
+                                    setRoutineActivity(routine.id)
                                 }}>
                             <h3>{routine.name}</h3>
                             <p>{routine.goal}</p>
@@ -24,10 +25,13 @@ const MyRoutines = ({myRoutines, setMyRoutines, token, history, activities}) => 
                             {routine.activities ? (routine.activities.map((activity) => (
                                 <div>
                                     <h3>{activity.name}</h3>
+                                    <p>Description: {activity.description}</p>
+                                    <p>Count: {activity.count}</p>
+                                    <p>Duration: {activity.duration}</p>
                                 </div>
                             ))) : 
                             (<div>
-                                <AddingRoutineActivity routineId={routineId} updateCount={updateCount} activities={activities} setUpdateCount={setUpdateCount} updateDuration={updateDuration} setUpdateDuration={setUpdateDuration}/>
+                                <p>Click on a routine to add an activity!</p>
                             </div>)}
                         </div>
                     </article>
