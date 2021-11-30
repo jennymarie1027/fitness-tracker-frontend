@@ -1,1 +1,0 @@
-// routines, username, activities, anything in the me route
