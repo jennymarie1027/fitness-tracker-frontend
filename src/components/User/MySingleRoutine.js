@@ -45,7 +45,7 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
                     <p>Duration: {activity.duration}</p>
                     <button
                         onClick={() => {
-                            history.push("/myroutines/" + routineId + "/" + activity.id)
+                            history.push("/myroutines/" + routineId + "/" + activity.routineActivityId)
                         }}
                     >Edit Activity</button>
                     <button

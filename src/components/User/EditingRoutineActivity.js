@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { handlePatchingRoutineActivity } from '../../handleFuncs';
 
-const EditingRoutineActivity = ({ routineId, match, history, token }) => {
+const EditingRoutineActivity = ({ match, history, token }) => {
     const routineActivityId = Number(match.params.routineActivityId)
+    const routineId = Number(match.params.routineId)
 
     const [updateCount, setUpdateCount] = useState(0)
     const [updateDuration, setUpdateDuration] = useState(0)
@@ -14,7 +15,7 @@ const EditingRoutineActivity = ({ routineId, match, history, token }) => {
                     onSubmit={async (e) => {
                         e.preventDefault()
                         await handlePatchingRoutineActivity(routineActivityId, updateCount, updateDuration, token)
-                        history.push('/myroutines' + routineId)
+                        history.push('/myroutines/' + routineId)
                     }}
                 >
                     <h1>Edit activity</h1>

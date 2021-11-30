@@ -72,7 +72,6 @@ const NewRoutine = ({setMyRoutines, token, myRoutines}) => {
                         value={isPublic}
                         onChange={e => setIsPublic(true)}
                         id="isPublic"
-                        className='form-control mb-2 editInput'
                     >
                     </input><p>Public</p>
                 

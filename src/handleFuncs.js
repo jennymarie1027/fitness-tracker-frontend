@@ -224,6 +224,7 @@ async function handleDeletingSingleRoutine(routineId, token){
     }
 }
 
+//----Error msg: Required parameters not sent in body: activityId, count, duration-----
 async function handleAddingRoutineActivity(routineId, activityId, updateCount, updateDuration){
     console.log("handlefuncs updatecount and duration is", updateCount, updateDuration)
     console.log("handlefuncs routineId is", routineId)
@@ -246,7 +247,6 @@ async function handleAddingRoutineActivity(routineId, activityId, updateCount, u
 }
 
 async function handlePatchingRoutineActivity(activityId, updateCount, updateDuration, token){
-    console.log("activityId, updateCount, updateDuration", activityId, updateCount, updateDuration)
     try {
         const result = await fetch(`${API_URL}/api/routine_activities/${activityId}`, {
             method: "PATCH",
@@ -267,6 +267,7 @@ async function handlePatchingRoutineActivity(activityId, updateCount, updateDura
     }
 }
 
+// ----Error msg: Cannot ready property 'creatorId' of undefined'-----//
 async function handleDeletingRoutineActivity(routineActivityId, token){
     try {
         const result = await fetch(`${API_URL}/api/routine_activities/${routineActivityId}`, {
