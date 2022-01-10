@@ -1,0 +1,21 @@
+.singleRoutine {
+    background-color: rgba(128, 128, 128, 0.3);
+    margin: 1em;
+    padding: 1em;
+    border-radius: 1em;
+}
+
+.singleActivity {
+    background-color: rgba(128, 128, 128, 0.3);
+    margin: 1em 1em 1em 0em;
+    padding: 1em;
+    border-radius: 1em;
+    max-width: 33%;
+    flex: 1;
+}
+
+.activitiesContainer {
+    /* border: 5px solid blue; */
+    display: flex;
+    width: 95vw;
+}
