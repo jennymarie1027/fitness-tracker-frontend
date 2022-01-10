@@ -28,7 +28,7 @@ const Routines = ({ routines, setRoutines}) => {
                 console.log(routine);
                 return(
                     <div key={routine.id} className='singleRoutine'>
-                    <h2>Routine Name: {routine.name}</h2>
+                    <h2>{routine.name}</h2>
                     <p>Routine Goal: {routine.goal}</p>
                     <p>Created By: {routine.creatorName}</p>
                     <div className='activitiesContainer'>

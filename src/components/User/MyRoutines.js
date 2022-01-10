@@ -9,31 +9,31 @@ const MyRoutines = ({myRoutines, setMyRoutines, token, history, activities}) => 
         <div>
             <h1>My routines</h1>
             <NewRoutine setMyRoutines={setMyRoutines} myRoutines={myRoutines} token={token} />
-            <div>
+            <div className='myRoutinesContainer'>
                 {myRoutines && myRoutines.map(routine => (
-                    <article key={routine.id}>
+                    <article key={routine.id} className='mySingleRoutine'>
                         <div
                             className='routineContainer'
-                            onClick={() => {
-                                    history.push("/myroutines/" + routine.id)
-                                    setRoutineActivity(routine.id)
-                                }}>
+                            >
                             <h3>{routine.name}</h3>
-                            <p>{routine.goal}</p>
+                            <p><b>Goal: </b>{routine.goal}</p>
                             <p><b>Creator: </b>{routine.creatorName}</p>
-                            <h2>Activities</h2>
-                            {routine.activities ? (routine.activities.map((activity) => (
-                                <div>
-                                    <h3>{activity.name}</h3>
+                            <h4>Activities</h4>
+                            {routine.activities.length ? (routine.activities.map((activity) => (
+                                <div className='mySingleActivity'>
+                                    <h5>{activity.name}</h5>
                                     <p>Description: {activity.description}</p>
                                     <p>Count: {activity.count}</p>
                                     <p>Duration: {activity.duration}</p>
                                 </div>
-                            ))) : 
-                            (<div>
-                                <p>Click on a routine to add an activity!</p>
-                            </div>)}
+                            ))) : (
+                                <p>No activities yet!</p>
+                            )}
                         </div>
+                        <button onClick={() => {
+                                    history.push("/myroutines/" + routine.id)
+                                    setRoutineActivity(routine.id)
+                                }}>Edit Routine & Activity Details</button>
                     </article>
                     ))
                 }
