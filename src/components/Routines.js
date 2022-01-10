@@ -14,7 +14,6 @@ async function handleFetchingRoutines( ){
 
 const Routines = ({ routines, setRoutines}) => {
 
-    console.log("api url is ", API_URL);
     useEffect(
         async ()=> {                  
         const results = await handleFetchingRoutines();     
@@ -33,7 +32,7 @@ const Routines = ({ routines, setRoutines}) => {
                     <div className='activitiesContainer'>
                     {routine.activities.length ? (
                              routine.activities.map(activity => (
-                                 <div className='singleActivity'>
+                                 <div className='singleActivity' key={activity.id}>
                                     <p>Activity Title {activity.name}</p> 
                                     <p>Description: {activity.description}</p>
                                     <p>Duration: {activity.duration}</p>
