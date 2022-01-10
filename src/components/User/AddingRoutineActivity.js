@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { handleAddingRoutineActivity } from '../../handleFuncs';
 
-const AddingRoutineActivity = ({routineId, updateCount, setUpdateCount, updateDuration, setUpdateDuration, activities}) => {
+const AddingRoutineActivity = ({token, routineId, updateCount, setUpdateCount, updateDuration, setUpdateDuration, activities}) => {
     const [activityId, setActivityId] = useState(null)
     
     return (
@@ -10,7 +10,7 @@ const AddingRoutineActivity = ({routineId, updateCount, setUpdateCount, updateDu
                     
                     onSubmit={async (e) => {
                         e.preventDefault()
-                        await handleAddingRoutineActivity(routineId, activityId, updateCount, updateDuration)
+                        await handleAddingRoutineActivity(routineId, activityId, updateCount, updateDuration, token)
                     }}
                 >
                     <h1>Add activity</h1>

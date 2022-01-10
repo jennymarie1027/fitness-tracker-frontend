@@ -17,7 +17,6 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
     
     useEffect(async () => {
         const displayedRoutine = await handleFetchingSingleRoutine(routineId, myRoutines)
-
         await setSelectedRoutine(displayedRoutine)
     }, [])
 
@@ -26,8 +25,9 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
             <EditRoutine history={history} token={token} selectedRoutine={selectedRoutine} routineId={routineId} updateName={updateName} setUpdateName={setUpdateName} updateGoal={updateGoal} setUpdateGoal={setUpdateGoal} updateIsPublic={updateIsPublic} setUpdateIsPublic={setUpdateIsPublic} />
             <div>
                 <h1>{selectedRoutine.name}</h1>
-                <p>{selectedRoutine.goal}</p>
+                <p><b>Goal:</b> {selectedRoutine.goal}</p>
                 <p><b>Creator: </b>{selectedRoutine.creatorName}</p>
+                <p><b>Routine Public: </b>{selectedRoutine.isPublic === true ? 'Yes' : "No"}</p>
                 <button
                     onClick={() => {
                         handleDeletingSingleRoutine(routineId, token)
@@ -36,35 +36,39 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
                 >
                     Delete routine
                 </button>
-                <h2>Activities</h2>
-                {selectedRoutine.activities ? (selectedRoutine.activities.map((activity) => (
-                    <div>
-                    <h3>{activity.name}</h3>
-                    <p>Description: {activity.description}</p>
-                    <p>Count: {activity.count}</p>
-                    <p>Duration: {activity.duration}</p>
-                    <button
-                        onClick={() => {
-                            history.push("/myroutines/" + routineId + "/" + activity.routineActivityId)
-                        }}
-                    >Edit Activity</button>
+                
+                <h2>Activities:</h2>
+                {selectedRoutine.activities ? (
+                    selectedRoutine.activities.map((activity) => (
+                    <div key={activity.id}>
+                        <hr />
+                        <h3>{activity.name}</h3>
+                        <p>Description: {activity.description}</p>
+                        <p>Count: {activity.count}</p>
+                        <p>Duration: {activity.duration}</p>
+                        <button
+                            onClick={() => {
+                                console.log('activity = ', activity)
+                                history.push("/myroutines/" + routineId + "/" + activity.routineActivityId)
+                            }}
+                        >Edit Activity</button>
 
-                    {/* NOTE: refresh page not working (all activities disappear) 
-                        --the activity will be deleted
-                    */}
-                    <button
-                        onClick={() => {
-                            handleDeletingRoutineActivity(activity.routineActivityId, token)
-                            history.push("/myroutines/")
-                        }}
-                    >Delete Activity</button>
+                        {/* NOTE: refresh page not working (all activities disappear) 
+                            --the activity will be deleted
+                        */}
+                        <button
+                            onClick={() => {
+                                handleDeletingRoutineActivity(activity.routineActivityId, token)
+                                history.push("/myroutines/")
+                            }}
+                        >Delete Activity</button>
                 </div>
                 ))) : 
-                    (<div>
-                        <h3>No activities yet!</h3>
-                    </div>)
+                    (
+                        <p>No activities yet! Add one below.</p>
+                    )
                 }
-                <AddingRoutineActivity routineId={routineId} updateCount={updateCount} activities={activities} setUpdateCount={setUpdateCount} updateDuration={updateDuration} setUpdateDuration={setUpdateDuration}/>
+                <AddingRoutineActivity token={token} routineId={routineId} updateCount={updateCount} activities={activities} setUpdateCount={setUpdateCount} updateDuration={updateDuration} setUpdateDuration={setUpdateDuration}/>
             </div>
         </div>
     )

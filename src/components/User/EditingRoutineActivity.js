@@ -15,7 +15,8 @@ const EditingRoutineActivity = ({ match, history, token }) => {
                     className="editRoutineActivityContainer"
                     onSubmit={async (e) => {
                         e.preventDefault()
-                        await handlePatchingRoutineActivity(routineActivityId, updateCount, updateDuration, token)
+                        const res = await handlePatchingRoutineActivity(routineActivityId, updateCount, updateDuration, token);
+                        console.log(res);
                         history.push('/myroutines/' + routineId)
                     }}
                 >
