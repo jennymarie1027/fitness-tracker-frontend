@@ -4,8 +4,9 @@ import {BrowserRouter, Route } from 'react-router-dom';
 import { Activities, Footer, Header, Login, Logout, MyRoutines, MySingleRoutine, Routines, Homepage } from './components'
 import EditingRoutineActivity from './components/User/EditingRoutineActivity';
 import {handleFetchingRoutines} from './handleFuncs'
+
 const Index = () => {
-    // try to figure out why handleFetchingActivities is not working in the useeffect
+    // try to figure out why handleFetchingActivities is not working in the useEffect
     const [token, setToken] = useState('');
     const [activities, setActivities] = useState([]);
     const [myRoutines, setMyRoutines] = useState([]);
