@@ -6,15 +6,12 @@ import EditingRoutineActivity from './components/User/EditingRoutineActivity';
 import {handleFetchingRoutines} from './handleFuncs'
 
 const Index = () => {
-    // try to figure out why handleFetchingActivities is not working in the useEffect
     const [token, setToken] = useState('');
     const [activities, setActivities] = useState([]);
     const [myRoutines, setMyRoutines] = useState([]);
     const [routines, setRoutines] = useState([]);
     const [selectedRoutine, setSelectedRoutine] = useState({})
 
-    // incorporate useEffect here...
-    // this useEffect checks is there is a token in browser storage
     useEffect(() => {
         const storedToken = localStorage.getItem('token')
         if (storedToken) {
@@ -40,7 +37,6 @@ const Index = () => {
           return result;
         })
         .catch(console.error);
-      console.log(res);
       setActivities(res);
   }
   getActivities();
@@ -53,21 +49,18 @@ const Index = () => {
             <Route path='/register' exact render={(routeProps) => <Login {...routeProps} setToken={setToken} /> } />
             <Route path='/activities' exact render={() => <Activities token={token} activities={activities} setActivities={setActivities}/> } />
             <Route path='/routines' exact render={(routeProps) => <Routines setRoutines={setRoutines} routines={routines} {...routeProps} /> } />
-            { !!token === true &&
+            { token &&
                 <Route path='/myroutines' exact render={(routeProps) => <MyRoutines {...routeProps} activities={activities} isLoggedIn={!!token} myRoutines={myRoutines} setMyRoutines={setMyRoutines} token={token} /> } />
             }
             <Route path='/myroutines/:routineId' exact render={(routeProps) => <MySingleRoutine {...routeProps} activities={activities} token={token} selectedRoutine={selectedRoutine} setSelectedRoutine={setSelectedRoutine} myRoutines={myRoutines} />} />
             <Route path='/myroutines/:routineId/:routineActivityId' exact render ={(routeProps) => <EditingRoutineActivity {...routeProps} token={token} />}/>
             <Route path='/logout' exact render={(routeProps) => <Logout {...routeProps} setToken={setToken} /> } />
             <Route path='/' exact render={() => <Homepage token={token} />}/>
-            {/* <Footer /> */}
         </BrowserRouter>
     )
 }
 
 ReactDOM.render(
-
       <Index />,
-
   document.getElementById('app')
 );
