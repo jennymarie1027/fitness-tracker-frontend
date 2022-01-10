@@ -224,14 +224,14 @@ async function handleDeletingSingleRoutine(routineId, token){
     }
 }
 
-//----Error msg: Required parameters not sent in body: activityId, count, duration-----//
-async function handleAddingRoutineActivity(routineId, activityId, updateCount, updateDuration){
-    console.log("handlefuncs updatecount and duration is", updateCount, updateDuration)
-    console.log("handlefuncs routineId is", routineId)
-    console.log("handlefuncs activityId is ", activityId)
+async function handleAddingRoutineActivity(routineId, activityId, updateCount, updateDuration, token){
     try {
         const result = await fetch(`${API_URL}/api/routines/${routineId}/activities`, {
-            method: "POST", 
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
             body: JSON.stringify({
                 activityId: activityId,
                 count: updateCount,
@@ -261,7 +261,7 @@ async function handlePatchingRoutineActivity(activityId, updateCount, updateDura
         })
 
         const data = await result.json();
-        console.log("added activity is", data)
+        console.log("edited activity is", data)
     } catch (error) {
         console.error(error)
     }
