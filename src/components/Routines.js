@@ -25,7 +25,6 @@ const Routines = ({ routines, setRoutines}) => {
         <div>
             <div className='marginTop'>Routines</div>
             {routines.map((routine) =>{
-                console.log(routine);
                 return(
                     <div key={routine.id} className='singleRoutine'>
                     <h2>{routine.name}</h2>

@@ -20,7 +20,7 @@ const MyRoutines = ({myRoutines, setMyRoutines, token, history, activities}) => 
                             <p><b>Creator: </b>{routine.creatorName}</p>
                             <h4>Activities</h4>
                             {routine.activities.length ? (routine.activities.map((activity) => (
-                                <div className='mySingleActivity'>
+                                <div className='mySingleActivity' key={activity.id}>
                                     <h5>{activity.name}</h5>
                                     <p>Description: {activity.description}</p>
                                     <p>Count: {activity.count}</p>
