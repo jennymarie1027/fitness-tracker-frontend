@@ -21,12 +21,10 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
     }, [])
 
     return (
-        <div>
-            <EditRoutine history={history} token={token} selectedRoutine={selectedRoutine} routineId={routineId} updateName={updateName} setUpdateName={setUpdateName} updateGoal={updateGoal} setUpdateGoal={setUpdateGoal} updateIsPublic={updateIsPublic} setUpdateIsPublic={setUpdateIsPublic} />
-            <div>
-                <h1>{selectedRoutine.name}</h1>
+        <div className='marginTop'>
+                <h1>{selectedRoutine.name} Routine Details</h1>
                 <p><b>Goal:</b> {selectedRoutine.goal}</p>
-                <p><b>Creator: </b>{selectedRoutine.creatorName}</p>
+                <p><b>Created By: </b>{selectedRoutine.creatorName}</p>
                 <p><b>Routine Public: </b>{selectedRoutine.isPublic === true ? 'Yes' : "No"}</p>
                 <button
                     onClick={() => {
@@ -40,7 +38,7 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
                 <h2>Activities:</h2>
                 {selectedRoutine.activities ? (
                     selectedRoutine.activities.map((activity) => (
-                    <div key={activity.id}>
+                        <div key={activity.id}>
                         <hr />
                         <h3>{activity.name}</h3>
                         <p>Description: {activity.description}</p>
@@ -64,12 +62,12 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
                         >Delete Activity</button>
                 </div>
                 ))) : 
-                    (
-                        <p>No activities yet! Add one below.</p>
+                (
+                    <p>No activities yet! Add one below.</p>
                     )
                 }
+                <EditRoutine history={history} token={token} selectedRoutine={selectedRoutine} routineId={routineId} updateName={updateName} setUpdateName={setUpdateName} updateGoal={updateGoal} setUpdateGoal={setUpdateGoal} updateIsPublic={updateIsPublic} setUpdateIsPublic={setUpdateIsPublic} />
                 <AddingRoutineActivity token={token} routineId={routineId} updateCount={updateCount} activities={activities} setUpdateCount={setUpdateCount} updateDuration={updateDuration} setUpdateDuration={setUpdateDuration}/>
-            </div>
         </div>
     )
 }
