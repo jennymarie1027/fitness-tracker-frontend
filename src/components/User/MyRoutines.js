@@ -10,7 +10,7 @@ const MyRoutines = ({myRoutines, setMyRoutines, token, history, activities}) => 
             <h1>My routines</h1>
             <NewRoutine setMyRoutines={setMyRoutines} myRoutines={myRoutines} token={token} />
             <div className='myRoutinesContainer'>
-                {myRoutines && myRoutines.map(routine => (
+                {myRoutines.length ? myRoutines.map(routine => (
                     <article key={routine.id} className='mySingleRoutine'>
                         <div
                             className='routineContainer'
@@ -36,7 +36,7 @@ const MyRoutines = ({myRoutines, setMyRoutines, token, history, activities}) => 
                                 }}>Edit Routine & Activity Details</button>
                     </article>
                     ))
-                }
+                : <p>You have not made any routines yet!</p>}
             </div>
         </div>
     )

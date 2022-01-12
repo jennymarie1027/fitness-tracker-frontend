@@ -11,14 +11,13 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
 
     const [updateCount, setUpdateCount] = useState(0)
     const [updateDuration, setUpdateDuration] = useState(0)
-
-    const routineId = Number(match.params.routineId)
+    const [routineId, setRoutineId] = useState(Number(match.params.routineId))
 
     
     useEffect(async () => {
         const displayedRoutine = await handleFetchingSingleRoutine(routineId, myRoutines)
-        await setSelectedRoutine(displayedRoutine)
-    }, [])
+        setSelectedRoutine(displayedRoutine)
+    }, [myRoutines])
 
     return (
         <div className='marginTop'>

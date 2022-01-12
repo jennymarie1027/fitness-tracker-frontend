@@ -4,6 +4,7 @@ import {BrowserRouter, Route } from 'react-router-dom';
 import { Activities, Footer, Header, Login, Logout, MyRoutines, MySingleRoutine, Routines, Homepage } from './components'
 import EditingRoutineActivity from './components/User/EditingRoutineActivity';
 import {handleFetchingRoutines} from './handleFuncs'
+import { handleFetchingUserRoutines } from './handleFuncs';
 
 const Index = () => {
     const [token, setToken] = useState('');
@@ -11,6 +12,7 @@ const Index = () => {
     const [myRoutines, setMyRoutines] = useState([]);
     const [routines, setRoutines] = useState([]);
     const [selectedRoutine, setSelectedRoutine] = useState({})
+    
 
     useEffect(() => {
         const storedToken = localStorage.getItem('token')
@@ -25,6 +27,16 @@ const Index = () => {
     const results = await handleFetchingRoutines();     
     setRoutines( results );
 }, []); 
+
+  useEffect(async () => {
+    let username = localStorage.getItem('username');
+    let token = localStorage.getItem('token')
+    if (username) {
+      const fetchedRoutines = await handleFetchingUserRoutines(username, setMyRoutines, token)
+      setMyRoutines(fetchedRoutines)
+    } 
+  }, [])
+
 
   useEffect(() => {
     async function getActivities(){
