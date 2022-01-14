@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { handleFetchingActivities, handleAddingActivity } from '../handleFuncs.js';
 
-const CreateActivity = ({ setActivities, token }) => {
+const CreateActivity = ({ setActivities, token, history }) => {
 
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
@@ -22,8 +22,7 @@ const CreateActivity = ({ setActivities, token }) => {
                     } else {
                         const res = await handleFetchingActivities();
                         setActivities(res);
-                        setName('')
-                        setDescription('')
+                        history.push('/activities')
                     }
                 } catch (err) {
                     console.error(err)
