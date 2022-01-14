@@ -6,7 +6,9 @@
 .newActivity {
     width: 20%;
 }
-
+td {
+    padding: 0.5em;
+}
 
 
 td:nth-child(even), th:nth-child(even) { 
@@ -17,7 +19,7 @@ td:nth-child(even), th:nth-child(even) {
 th {
     position: sticky;
     top: 60px;
-    padding: 1em;
+    padding: 1em 1em 1em 0em;
     background-color: white;
 }
 
