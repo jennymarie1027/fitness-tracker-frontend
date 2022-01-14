@@ -1,0 +1,26 @@
+
+.activityRow:nth-child(even) {
+    background-color: lightgray;
+}
+
+.newActivity {
+    width: 20%;
+}
+
+
+
+td:nth-child(even), th:nth-child(even) { 
+    /* border-left: 1px solid black; */
+    padding-left: 2em;
+}
+
+th {
+    position: sticky;
+    top: 60px;
+    padding: 1em;
+    background-color: white;
+}
+
+main {
+    margin-top: 65px;
+}
