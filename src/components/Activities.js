@@ -1,27 +1,37 @@
 import React from 'react'
-import CreateActivity from './CreateActivity';
 
-const Activities = ({ token, activities, setActivities, history }) => {
+const Activities = ({ token, activities, history }) => {
     return (
-        <main style={{margin: 4 +'em'}}>
-            <button onClick={() => {
-                history.push('/newactivity');
-                console.log(history)
+        <main style={{margin: 4.5 +'em'}}>
+            
+        { token ? 
+            <button  className='btn btn-primary mb-3 mt-3'
+                onClick={() => {
+                    history.push('/newactivity');
+                    console.log(history)
             }}>Create a New Activity</button>
-        {/* { token ? <CreateActivity setActivities={setActivities} token={token} /> : null } */}
+        : null }
 
-        <h1>All Activities</h1> 
-        {activities &&
-           activities.map(activity => (
-               <article key={activity.id}>
-                   <div className='activityContainer'>
-                       <h3>Activity:</h3>
-                       <p>{activity.name}</p>
-                       <p>Description: {activity.description}</p>
-                   </div>
-               </article>
-           ))
-           }
+        <h1>Activities</h1> 
+        <table>
+            <thead>
+                <tr className='sticky-top'>
+                    <th>Activity Name</th>
+                    <th>Activity Description</th>
+                </tr>
+            </thead>
+            <tbody>
+               {activities.length ? (
+                   activities.map(activity => (
+                       <>
+                        <tr scope='row' key={activity.id}></tr>
+                        <td>{activity.name}</td>
+                        <td>{activity.description}</td>
+                       </>
+                   ))
+               ) : null} 
+            </tbody>
+        </table>
         </main>
     )}
 
