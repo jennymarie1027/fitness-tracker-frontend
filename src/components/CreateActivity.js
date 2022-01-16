@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { handleFetchingActivities, handleAddingActivity } from '../handleFuncs.js';
 
-const CreateActivity = ({ setActivities, token }) => {
+const CreateActivity = ({ setActivities, token, history }) => {
 
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
 
 
     return (
-        <div>
+        <div className='newActivityContainer'>
             <h2>Create A New Activity:</h2>
-            <form onSubmit={async (e) => {
+            <form className='row g-3'
+            onSubmit={async (e) => {
                 e.preventDefault();
                 try {
                     const data = await handleAddingActivity(name, description, token);
@@ -21,37 +22,40 @@ const CreateActivity = ({ setActivities, token }) => {
                     } else {
                         const res = await handleFetchingActivities();
                         setActivities(res);
-                        setName('')
-                        setDescription('')
+                        history.push('/activities')
                     }
                 } catch (err) {
                     console.error(err)
                 }
             
             }}>
-            <div>
-                <label>Name:</label>
+            <div className='col-md-4'>
+                <label className='form-label' for='name'>Name:</label>
                 <input 
+                    className='form-control'
                     id='name'
                     type='text'
-                    placeholder='enter activity name'
+                    placeholder='activity name'
                     required
                     value={name}
                     onChange={e => setName(e.target.value)}
                 />
             </div>
-            <div>
-                <label>Description:</label>
+            <div className='col-md-8'>
+                <label className='form-label' for='description'>Description:</label>
                 <input 
+                    className='form-control'
                     id='description'
                     type='text'
-                    placeholder='enter activity description'
+                    placeholder='activity description'
                     required
                     value={description}
                     onChange={e => setDescription(e.target.value)}
                 />
             </div>
-            <button>Submit!</button>
+            <div className='col-md-12'>
+                <button className='btn btn-primary'>Submit!</button>
+            </div>
             </form>
         </div>
     )

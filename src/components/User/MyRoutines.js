@@ -31,8 +31,8 @@ const MyRoutines = ({myRoutines, setMyRoutines, token, history, activities}) => 
                             )}
                         </div>
                         <button onClick={() => {
+                                    console.log(history)
                                     history.push("/myroutines/" + routine.id)
-                                    setRoutineActivity(routine.id)
                                 }}>Edit Routine & Activity Details</button>
                     </article>
                     ))
