@@ -1,0 +1,13 @@
+.singleRoutineDetailsContainer {
+    border: 5px solid orange;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.singleRoutineDetails {
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+}
