@@ -1,5 +1,8 @@
 .singleRoutineDetailsContainer {
-    border: 5px solid orange;
+    background-color: rgba(211, 211, 211, 0.5);
+    margin: 1em;
+    padding: 1em;
+    border-radius: 1em;
     display: flex;
     flex-direction: column;
     justify-content: center;
