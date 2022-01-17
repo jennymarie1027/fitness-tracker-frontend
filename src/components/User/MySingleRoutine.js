@@ -4,12 +4,8 @@ import AddingRoutineActivity from './AddingRoutineActivity';
 import EditRoutine from './EditRoutine';
 
 const MySingleRoutine = ({
-    match, history, token, myRoutines, selectedRoutine, setSelectedRoutine, activities, routineId, setRoutineId, updateName, 
-    setUpdateName, updateGoal, setUpdateGoal, setUpdateIsPublic, updateIsPublic}) => {
+    match, history, token, myRoutines, selectedRoutine, setSelectedRoutine, routineId, setRoutineId, }) => {
 
-    const [updateCount, setUpdateCount] = useState(0)
-    const [updateDuration, setUpdateDuration] = useState(0)
-    
     useEffect(() => {
         setRoutineId(Number(match.params.routineId));
     }, [])
@@ -44,6 +40,13 @@ const MySingleRoutine = ({
                 >
                     Edit routine
                 </button>
+                <button
+                    onClick={() => {
+                        history.push('/addRoutineActivity/' + routineId)
+                    }}
+                >
+                    Add activity
+                </button>
 
             </div>
             <h2>Activities:</h2>
@@ -76,7 +79,7 @@ const MySingleRoutine = ({
                 <p>This routine does not have any activities yet!</p>
                 )
             }
-            <AddingRoutineActivity history={history} token={token} routineId={routineId} updateCount={updateCount} activities={activities} setUpdateCount={setUpdateCount} updateDuration={updateDuration} setUpdateDuration={setUpdateDuration}/>
+            {/* <AddingRoutineActivity history={history} token={token} routineId={routineId} updateCount={updateCount} activities={activities} setUpdateCount={setUpdateCount} updateDuration={updateDuration} setUpdateDuration={setUpdateDuration}/> */}
         </div>
     )
 }
