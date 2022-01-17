@@ -23,11 +23,14 @@ async function handleFetchingPublicUserRoutines(user){
 const MyRoutines = ({myRoutines, setMyRoutines, token, history, username}) => {
     
     return (
-        <div>
-            {token ? 
-                <NewRoutine setMyRoutines={setMyRoutines} myRoutines={myRoutines} token={token} />
-                : null
-            }
+        <div className='marginTop'>
+            { token ? 
+                <button  className='btn btn-primary m-3'
+                onClick={() => {
+                    history.push('/newRoutine');
+                    console.log(history)
+            }}>Create a New Routine</button>
+        : null }
             <div className='myRoutinesContainer'>
                 {myRoutines.length ? myRoutines.map(routine => (
                     <article key={routine.id} className='mySingleRoutine'>
@@ -49,7 +52,8 @@ const MyRoutines = ({myRoutines, setMyRoutines, token, history, username}) => {
                                 <p>No activities yet!</p>
                             )}
                         </div>
-                        <button onClick={() => {
+                        <button  className='btn btn-primary m-3'
+                        onClick={() => {
                                     console.log(history)
                                     history.push(`/routines/${username}/` + routine.id)
                                 }}>Edit Routine & Activity Details</button>

@@ -260,6 +260,7 @@ async function handleAddingRoutineActivity(routineId, activityId, updateCount, u
 
         const data = await result.json();
         console.log("added activity is", data)
+        return data;
     } catch (error) {
         console.error(error)
     }

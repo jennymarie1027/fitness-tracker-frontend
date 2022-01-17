@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter, Route } from 'react-router-dom';
-import { Activities, Footer, Header, Login, Logout, MyRoutines, MySingleRoutine, Routines, Homepage } from './components'
+import { Activities, Footer, Header, Login, Logout, MyRoutines, MySingleRoutine, Routines, Homepage, NewRoutine, EditRoutine, AddingRoutineActivity } from './components'
 import CreateActivity from './components/CreateActivity';
 import EditingRoutineActivity from './components/User/EditingRoutineActivity';
 import {handleFetchingRoutines} from './handleFuncs'
@@ -13,7 +13,13 @@ const Index = () => {
     const [myRoutines, setMyRoutines] = useState([]);
     const [routines, setRoutines] = useState([]);
     const [selectedRoutine, setSelectedRoutine] = useState({})
-    
+    const [routineId, setRoutineId] = useState(0)
+
+    const [updateName, setUpdateName] = useState('')
+    const [updateGoal, setUpdateGoal] = useState('')
+    const [updateIsPublic, setUpdateIsPublic] = useState(false)
+    const [updateCount, setUpdateCount] = useState(0)
+    const [updateDuration, setUpdateDuration] = useState(0)
 
     useEffect(() => {
         const storedToken = localStorage.getItem('token')

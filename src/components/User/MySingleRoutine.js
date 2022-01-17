@@ -3,70 +3,77 @@ import { handleFetchingSingleRoutine, handleDeletingSingleRoutine, handleDeletin
 import AddingRoutineActivity from './AddingRoutineActivity';
 import EditRoutine from './EditRoutine';
 
-const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, setSelectedRoutine, activities, username}) => {
+const MySingleRoutine = ({
+    match, history, token, myRoutines, selectedRoutine, setSelectedRoutine, routineId, setRoutineId, username }) => {
 
-    const [updateName, setUpdateName] = useState('')
-    const [updateGoal, setUpdateGoal] = useState('')
-    const [updateIsPublic, setUpdateIsPublic] = useState(false)
+    useEffect(() => {
+        setRoutineId(Number(match.params.routineId));
+    }, [])
 
-    const [updateCount, setUpdateCount] = useState(0)
-    const [updateDuration, setUpdateDuration] = useState(0)
-    const [routineId, setRoutineId] = useState(Number(match.params.routineId))
-
+    console.log('selectedRoutine = ', selectedRoutine);
     
     useEffect(async () => {
         const displayedRoutine = await handleFetchingSingleRoutine(routineId, myRoutines)
         setSelectedRoutine(displayedRoutine)
-    }, [myRoutines])
+    }, [myRoutines, routineId])
 
     return (
         <div className='marginTop'>
+            <div className='singleRoutineDetailsContainer'>
                 <h1>{selectedRoutine.name} Routine Details</h1>
-                <p><b>Goal:</b> {selectedRoutine.goal}</p>
-                <p><b>Created By: </b>{selectedRoutine.creatorName}</p>
-                <p><b>Routine Public: </b>{selectedRoutine.isPublic === true ? 'Yes' : "No"}</p>
-                <button
-                    onClick={() => {
-                        handleDeletingSingleRoutine(routineId, token)
-                        history.push(`/routines/${username}`)
-                    }}
-                >
-                    Delete routine
-                </button>
-                
-                <h2>Activities:</h2>
-                {selectedRoutine.activities ? (
-                    selectedRoutine.activities.map((activity) => (
-                        <div key={activity.id}>
+                <div className='singleRoutineDetails'>
+                    <p><b>Goal:</b> {selectedRoutine.goal}</p>
+                    <p><b>Created By: </b>{selectedRoutine.creatorName}</p>
+                    <p><b>Routine Public: </b>{selectedRoutine.isPublic === true ? 'Yes' : "No"}</p>
+                </div>
+                <div className='singleRoutineBtns'>
+                    <button className='btn btn-primary m-3'
+                        onClick={() => {
+                            handleDeletingSingleRoutine(routineId, token)
+                            history.push('/myroutines')
+                        }}
+                    >
+                        Delete routine
+                    </button>
+                    <button className='btn btn-primary m-3'
+                        onClick={() => {
+                            history.push('/editRoutine/' + routineId)
+                        }}
+                    >
+                        Edit routine
+                    </button>
+                    <button className='btn btn-primary m-3'
+                        onClick={() => {
+                            history.push('/addRoutineActivity/' + routineId)
+                        }}
+                    >
+                        Add activity
+                    </button>
+                </div>
+            </div>
+            <h2>{selectedRoutine ? selectedRoutine.name : 'no selected routine'} Activities:</h2>
+            {selectedRoutine.activities ? (
+                selectedRoutine.activities.map((activity) => (
+                    <div key={activity.id}>
                         <hr />
                         <h3>{activity.name}</h3>
                         <p>Description: {activity.description}</p>
                         <p>Count: {activity.count}</p>
                         <p>Duration: {activity.duration}</p>
-                        <button
+                        <button className='btn btn-primary m-3'
                             onClick={() => {
                                 console.log('activity = ', activity)
                                 history.push(`/routines/${username}/` + routineId + "/" + activity.routineActivityId)
                             }}
                         >Edit Activity</button>
-
-                        {/* NOTE: refresh page not working (all activities disappear) 
-                            --the activity will be deleted
-                        */}
-                        <button
+                        <button className='btn btn-primary m-3'
                             onClick={() => {
                                 handleDeletingRoutineActivity(activity.routineActivityId, token)
                                 history.push(`/routines/${username}`)
                             }}
                         >Delete Activity</button>
-                </div>
-                ))) : 
-                (
-                    <p>No activities yet! Add one below.</p>
-                    )
-                }
-                <EditRoutine history={history} token={token} selectedRoutine={selectedRoutine} routineId={routineId} updateName={updateName} setUpdateName={setUpdateName} updateGoal={updateGoal} setUpdateGoal={setUpdateGoal} updateIsPublic={updateIsPublic} setUpdateIsPublic={setUpdateIsPublic} />
-                <AddingRoutineActivity token={token} routineId={routineId} updateCount={updateCount} activities={activities} setUpdateCount={setUpdateCount} updateDuration={updateDuration} setUpdateDuration={setUpdateDuration}/>
+                    </div>
+            ))) : <p>This routine does not have any activities yet.  Add one above.</p> }
         </div>
     )
 }

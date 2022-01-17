@@ -1,0 +1,26 @@
+.singleRoutineDetailsContainer {
+    background-color: rgba(211, 211, 211, 0.5);
+    margin: 1em;
+    padding: 1em;
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.singleRoutineDetails {
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.singleRoutineBtns {
+    width: 80%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/* .singleRoutineBtns > button {
+    padding: 1em;
+} */
