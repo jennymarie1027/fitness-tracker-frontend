@@ -3,28 +3,32 @@ import { handleFetchingSingleRoutine, handleDeletingSingleRoutine, handleDeletin
 import AddingRoutineActivity from './AddingRoutineActivity';
 import EditRoutine from './EditRoutine';
 
-const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, setSelectedRoutine, activities}) => {
-
-    const [updateName, setUpdateName] = useState('')
-    const [updateGoal, setUpdateGoal] = useState('')
-    const [updateIsPublic, setUpdateIsPublic] = useState(false)
+const MySingleRoutine = ({
+    match, history, token, myRoutines, selectedRoutine, setSelectedRoutine, activities, routineId, setRoutineId, updateName, 
+    setUpdateName, updateGoal, setUpdateGoal, setUpdateIsPublic, updateIsPublic}) => {
 
     const [updateCount, setUpdateCount] = useState(0)
     const [updateDuration, setUpdateDuration] = useState(0)
-    const [routineId, setRoutineId] = useState(Number(match.params.routineId))
+    
+    useEffect(() => {
+        setRoutineId(Number(match.params.routineId));
+    }, [])
 
     
     useEffect(async () => {
         const displayedRoutine = await handleFetchingSingleRoutine(routineId, myRoutines)
         setSelectedRoutine(displayedRoutine)
-    }, [myRoutines])
+    }, [myRoutines, routineId])
 
     return (
         <div className='marginTop'>
+            <div className='singleRoutineDetailsContainer'>
                 <h1>{selectedRoutine.name} Routine Details</h1>
-                <p><b>Goal:</b> {selectedRoutine.goal}</p>
-                <p><b>Created By: </b>{selectedRoutine.creatorName}</p>
-                <p><b>Routine Public: </b>{selectedRoutine.isPublic === true ? 'Yes' : "No"}</p>
+                <div className='singleRoutineDetails'>
+                    <p><b>Goal:</b> {selectedRoutine.goal}</p>
+                    <p><b>Created By: </b>{selectedRoutine.creatorName}</p>
+                    <p><b>Routine Public: </b>{selectedRoutine.isPublic === true ? 'Yes' : "No"}</p>
+                </div>
                 <button
                     onClick={() => {
                         handleDeletingSingleRoutine(routineId, token)
@@ -33,11 +37,19 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
                 >
                     Delete routine
                 </button>
-                
-                <h2>Activities:</h2>
-                {selectedRoutine.activities ? (
-                    selectedRoutine.activities.map((activity) => (
-                        <div key={activity.id}>
+                <button
+                    onClick={() => {
+                        history.push('/editRoutine/' + routineId)
+                    }}
+                >
+                    Edit routine
+                </button>
+
+            </div>
+            <h2>Activities:</h2>
+            {selectedRoutine.activities ? (
+                selectedRoutine.activities.map((activity) => (
+                    <div key={activity.id}>
                         <hr />
                         <h3>{activity.name}</h3>
                         <p>Description: {activity.description}</p>
@@ -49,7 +61,6 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
                                 history.push("/myroutines/" + routineId + "/" + activity.routineActivityId)
                             }}
                         >Edit Activity</button>
-
                         {/* NOTE: refresh page not working (all activities disappear) 
                             --the activity will be deleted
                         */}
@@ -59,14 +70,13 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
                                 history.push("/myroutines/")
                             }}
                         >Delete Activity</button>
-                </div>
-                ))) : 
-                (
-                    <p>No activities yet! Add one below.</p>
-                    )
-                }
-                <EditRoutine history={history} token={token} selectedRoutine={selectedRoutine} routineId={routineId} updateName={updateName} setUpdateName={setUpdateName} updateGoal={updateGoal} setUpdateGoal={setUpdateGoal} updateIsPublic={updateIsPublic} setUpdateIsPublic={setUpdateIsPublic} />
-                <AddingRoutineActivity history={history} token={token} routineId={routineId} updateCount={updateCount} activities={activities} setUpdateCount={setUpdateCount} updateDuration={updateDuration} setUpdateDuration={setUpdateDuration}/>
+                    </div>
+            ))) : 
+            (
+                <p>This routine does not have any activities yet!</p>
+                )
+            }
+            <AddingRoutineActivity history={history} token={token} routineId={routineId} updateCount={updateCount} activities={activities} setUpdateCount={setUpdateCount} updateDuration={updateDuration} setUpdateDuration={setUpdateDuration}/>
         </div>
     )
 }
