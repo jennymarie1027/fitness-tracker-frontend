@@ -29,9 +29,7 @@ const Routines = ({ routines, setRoutines, setMyRoutines}) => {
                     <div key={routine.id} className='singleRoutine'>
                     <h2>{routine.name}</h2>
                     <p>Routine Goal: {routine.goal}</p>
-                    <p>Created By: <button href='/myroutines' onClick={
-                        //localStorage.setItem('username', routine.creatorName)
-                    }>{routine.creatorName}</button></p>
+                    <p>Created By: <a href={`/routines/${routine.creatorName}`}>{routine.creatorName}</a></p>
                     <div className='activitiesContainer'>
                     {routine.activities.length ? (
                              routine.activities.map(activity => (
