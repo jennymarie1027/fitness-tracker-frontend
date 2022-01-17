@@ -126,7 +126,6 @@ async function handleFetchingRoutines( ){
 }
 
 async function handleFetchingPublicUserRoutines(user){
-    console.log("IN")
     try {
         const result = await fetch(`${API_URL}/api/routines`, { headers: { 'Content-Type': "application/json",} } )
         const data= await result.json();
@@ -137,7 +136,6 @@ async function handleFetchingPublicUserRoutines(user){
             if(data[i].creatorName === user) userData.push(data[i]);
         }
 
-        console.log("USER DATA IS", userData)
         return userData
     } catch (error) {
         throw error;

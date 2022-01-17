@@ -1,27 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import AddingRoutineActivity from './AddingRoutineActivity';
-import NewRoutine from './newRoutine';
+import { handleFetchingPublicUserRoutines } from '../../handleFuncs';
 
-async function handleFetchingPublicUserRoutines(user){
-    try {
-        const result = await fetch(`${API_URL}/api/routines`, { headers: { 'Content-Type': "application/json",} } )
-        const data= await result.json();
-
-        let userData = []
-        
-        for(let i=0; i<data.length; i++){
-            if(data[i].creatorName === user) userData.push(data[i]);
+const MyRoutines = ({mappedRoutines, setMappedRoutines, myRoutines, token, history, username, match, publicRoutines, setPublicRoutines}) => {
+    useEffect(() => {
+        async function userPublicRoutines() {                  
+            const results = await handleFetchingPublicUserRoutines(match.params.username)
+            setPublicRoutines(results)   
+            setMappedRoutines(results)         
+            
+            return results
         }
+        if(myRoutines.length === 0){ 
+            userPublicRoutines();
+        } else setMappedRoutines(myRoutines)
+    }, []); 
 
-        console.log(userData)
-        return userData
-    } catch (error) {
-        throw error;
-    }
-}
-
-const MyRoutines = ({myRoutines, setMyRoutines, token, history, username}) => {
-    
+    console.log("PUBLIC ROUTINES ", publicRoutines)
+    console.log("MAPPED ROUTINES ", mappedRoutines)
     return (
         <div className='marginTop'>
             { token ? 
@@ -32,7 +27,7 @@ const MyRoutines = ({myRoutines, setMyRoutines, token, history, username}) => {
             }}>Create a New Routine</button>
         : null }
             <div className='myRoutinesContainer'>
-                {myRoutines.length ? myRoutines.map(routine => (
+                {mappedRoutines.length ? mappedRoutines.map(routine => (
                     <article key={routine.id} className='mySingleRoutine'>
                         <div
                             className='routineContainer'

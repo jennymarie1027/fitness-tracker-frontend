@@ -11,9 +11,11 @@ const Index = () => {
     const [token, setToken] = useState('');
     const [activities, setActivities] = useState([]);
     const [myRoutines, setMyRoutines] = useState([]);
+    const [publicRoutines, setPublicRoutines] = useState([])
     const [routines, setRoutines] = useState([]);
     const [selectedRoutine, setSelectedRoutine] = useState({})
     const [routineId, setRoutineId] = useState(0)
+    const [mappedRoutines, setMappedRoutines] = useState([])
 
     const [updateName, setUpdateName] = useState('')
     const [updateGoal, setUpdateGoal] = useState('')
@@ -71,7 +73,7 @@ const Index = () => {
             <Route path='/newRoutine' exact render={(routeProps) => <NewRoutine setMyRoutines={setMyRoutines} myRoutines={myRoutines} token={token} {...routeProps} /> } />
             <Route path='/editRoutine/:routineId' exact render={(routeProps) => <EditRoutine {...routeProps} myRoutines={myRoutines} setRoutineId={setRoutineId} routineId={routineId} token={token} selectedRoutine={selectedRoutine} routineId={routineId} updateName={updateName} setUpdateName={setUpdateName} updateGoal={updateGoal} setUpdateGoal={setUpdateGoal} updateIsPublic={updateIsPublic} setUpdateIsPublic={setUpdateIsPublic} /> } />
             <Route path='/addRoutineActivity/:routineId' exact render={(routeProps) => <AddingRoutineActivity {...routeProps} myRoutines={myRoutines} setSelectedRoutine={setSelectedRoutine} selectedRoutine={selectedRoutine} token={token} routineId={routineId} updateCount={updateCount} activities={activities} setUpdateCount={setUpdateCount} updateDuration={updateDuration} setUpdateDuration={setUpdateDuration} /> } />
-            <Route path='/routines/:username' exact render={(routeProps) => <MyRoutines {...routeProps} isLoggedIn={!!token} myRoutines={myRoutines} setMyRoutines={setMyRoutines} token={token} routines={routines} setRoutines={setRoutines} username={localStorage.getItem('username')}/> } />
+            <Route path='/routines/:username' exact render={(routeProps) => <MyRoutines {...routeProps} isLoggedIn={!!token} myRoutines={myRoutines} setMyRoutines={setMyRoutines} token={token} routines={routines} setRoutines={setRoutines} username={localStorage.getItem('username')} publicRoutines={publicRoutines} setPublicRoutines={setPublicRoutines} mappedRoutines={mappedRoutines} setMappedRoutines={setMappedRoutines}/> } />
             <Route path='/newactivity' exact render={(routeProps) => <CreateActivity {...routeProps} setActivities={setActivities} token={token} />}/>
             <Route path='/routines/:username/:routineId' exact render={(routeProps) => <MySingleRoutine {...routeProps} updateIsPublic={updateIsPublic} setUpdateIsPublic={setUpdateIsPublic} setUpdateName={setUpdateName} updateName={updateName} updateGoal={updateGoal} setUpdateGoal={setUpdateGoal} setRoutineId={setRoutineId} routineId={routineId} activities={activities} token={token} selectedRoutine={selectedRoutine} setSelectedRoutine={setSelectedRoutine} myRoutines={myRoutines} username={localStorage.getItem('username')} />} />
             <Route path='/routines/:username/:routineId/:routineActivityId' exact render ={(routeProps) => <EditingRoutineActivity {...routeProps} token={token} username={localStorage.getItem('username')} routineId={routineId}/>}/>
