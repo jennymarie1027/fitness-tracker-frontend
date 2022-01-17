@@ -6,9 +6,16 @@ const MyRoutines = ({myRoutines, setMyRoutines, token, history, activities}) => 
     const [routineActivity, setRoutineActivity] = useState("")
     
     return (
-        <div>
-            <h1>My routines</h1>
-            <NewRoutine setMyRoutines={setMyRoutines} myRoutines={myRoutines} token={token} />
+        <div className='marginTop'>
+            { token ? 
+                <button  className='btn btn-primary mb-3 mt-3 newActivity'
+                onClick={() => {
+                    history.push('/newRoutine');
+                    console.log(history)
+            }}>Create a New Routine</button>
+        : null }
+            {/* <h1>My routines</h1> */}
+            {/* <NewRoutine setMyRoutines={setMyRoutines} myRoutines={myRoutines} token={token} /> */}
             <div className='myRoutinesContainer'>
                 {myRoutines.length ? myRoutines.map(routine => (
                     <article key={routine.id} className='mySingleRoutine'>
