@@ -37,7 +37,7 @@ const MyRoutines = ({myRoutines, setMyRoutines, token, history, activities}) => 
                                 <p>No activities yet!</p>
                             )}
                         </div>
-                        <button  className='btn btn-primary'
+                        <button 
                         onClick={() => {
                                     console.log(history)
                                     history.push("/myroutines/" + routine.id)
