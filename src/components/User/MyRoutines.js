@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AddingRoutineActivity from './AddingRoutineActivity';
 import NewRoutine from './newRoutine';
 
-const MyRoutines = ({myRoutines, setMyRoutines, token, history, activities}) => {
-    const [routineActivity, setRoutineActivity] = useState("")
+const MyRoutines = ({myRoutines, setMyRoutines, token, history, routines, setRoutines}) => {
     
     return (
         <div>

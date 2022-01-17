@@ -12,13 +12,31 @@ async function handleFetchingRoutines( ){
     }
 }
 
+async function handleFetchingPublicUserRoutines(user){
+    try {
+        const result = await fetch(`${API_URL}/api/routines`, { headers: { 'Content-Type': "application/json",} } )
+        const data= await result.json();
+
+        let userData = []
+        
+        for(let i=0; i<data.length; i++){
+            if(data[i].creatorName === user) userData.push(data[i]);
+        }
+
+        console.log(userData)
+        return userData
+    } catch (error) {
+        throw error;
+    }
+}
+
 const Routines = ({ routines, setRoutines}) => {
 
     useEffect(
         async ()=> {                  
         const results = await handleFetchingRoutines();     
         setRoutines( results );
-    }, []);  
+    }, []);
 
     return (
         <div>
@@ -28,7 +46,7 @@ const Routines = ({ routines, setRoutines}) => {
                     <div key={routine.id} className='singleRoutine'>
                     <h2>{routine.name}</h2>
                     <p>Routine Goal: {routine.goal}</p>
-                    <p>Created By: {routine.creatorName}</p>
+                    <p>Created By: <button>{routine.creatorName}</button></p>
                     <div className='activitiesContainer'>
                     {routine.activities.length ? (
                              routine.activities.map(activity => (
