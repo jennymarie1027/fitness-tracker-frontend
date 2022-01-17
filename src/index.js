@@ -62,10 +62,10 @@ const Index = () => {
             <Route path='/register' exact render={(routeProps) => <Login {...routeProps} setToken={setToken} /> } />
             <Route path='/activities' exact render={(routeProps) => <Activities {...routeProps} token={token} activities={activities} setActivities={setActivities}/> } />
             <Route path='/routines' exact render={(routeProps) => <Routines setRoutines={setRoutines} routines={routines} setMyRoutines={setMyRoutines} {...routeProps} /> } />
-            <Route path='/routines/:userId' exact render={(routeProps) => <MyRoutines {...routeProps} isLoggedIn={!!token} myRoutines={myRoutines} setMyRoutines={setMyRoutines} token={token} routines={routines} setRoutines={setRoutines} /> } />
+            <Route path='/routines/:userId' exact render={(routeProps) => <MyRoutines {...routeProps} isLoggedIn={!!token} myRoutines={myRoutines} setMyRoutines={setMyRoutines} token={token} routines={routines} setRoutines={setRoutines} username={localStorage.getItem('username')}/> } />
             <Route path='/newactivity' exact render={(routeProps) => <CreateActivity {...routeProps} setActivities={setActivities} token={token} />}/>
-            <Route path='/routines/:userId/:routineId' exact render={(routeProps) => <MySingleRoutine {...routeProps} activities={activities} token={token} selectedRoutine={selectedRoutine} setSelectedRoutine={setSelectedRoutine} myRoutines={myRoutines} />} />
-            <Route path='/routines/:userId/:routineId/:routineActivityId' exact render ={(routeProps) => <EditingRoutineActivity {...routeProps} token={token} />}/>
+            <Route path='/routines/:userId/:routineId' exact render={(routeProps) => <MySingleRoutine {...routeProps} activities={activities} token={token} selectedRoutine={selectedRoutine} setSelectedRoutine={setSelectedRoutine} myRoutines={myRoutines} username={localStorage.getItem('username')}/>} />
+            <Route path='/routines/:userId/:routineId/:routineActivityId' exact render ={(routeProps) => <EditingRoutineActivity {...routeProps} token={token} username={localStorage.getItem('username')}/>}/>
             <Route path='/logout' exact render={(routeProps) => <Logout {...routeProps} setToken={setToken} /> } />
             <Route path='/' exact render={() => <Homepage token={token} username={localStorage.getItem('username')} />}/>
         </BrowserRouter>

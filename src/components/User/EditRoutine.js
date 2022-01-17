@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { handlePatchingSingleRoutine, handleFetchingSingleRoutine } from '../../handleFuncs';
 
-const EditRoutine = ({ token, history, selectedRoutine, routineId, updateName, setUpdateName, updateGoal, setUpdateGoal, updateIsPublic, setUpdateIsPublic }) => {
+const EditRoutine = ({ token, history, selectedRoutine, routineId, updateName, setUpdateName, updateGoal, setUpdateGoal, updateIsPublic, setUpdateIsPublic, username }) => {
     
 
     useEffect(() => {
@@ -17,7 +17,7 @@ const EditRoutine = ({ token, history, selectedRoutine, routineId, updateName, s
                 onSubmit={(e) => {
                     e.preventDefault()
                     handlePatchingSingleRoutine(token, routineId, updateName, updateGoal, updateIsPublic)
-                    history.push('/myroutines')
+                    history.push(`/routines/${username}`)
                 }}
             >
                 <h1>Edit Routine:</h1>

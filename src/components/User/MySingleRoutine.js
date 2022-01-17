@@ -3,7 +3,7 @@ import { handleFetchingSingleRoutine, handleDeletingSingleRoutine, handleDeletin
 import AddingRoutineActivity from './AddingRoutineActivity';
 import EditRoutine from './EditRoutine';
 
-const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, setSelectedRoutine, activities}) => {
+const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, setSelectedRoutine, activities, username}) => {
 
     const [updateName, setUpdateName] = useState('')
     const [updateGoal, setUpdateGoal] = useState('')
@@ -28,7 +28,7 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
                 <button
                     onClick={() => {
                         handleDeletingSingleRoutine(routineId, token)
-                        history.push('/myroutines')
+                        history.push(`/routines/${username}`)
                     }}
                 >
                     Delete routine
@@ -46,7 +46,7 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
                         <button
                             onClick={() => {
                                 console.log('activity = ', activity)
-                                history.push("/myroutines/" + routineId + "/" + activity.routineActivityId)
+                                history.push(`/routines/${username}/` + routineId + "/" + activity.routineActivityId)
                             }}
                         >Edit Activity</button>
 
@@ -56,7 +56,7 @@ const MySingleRoutine = ({match, history, token, myRoutines, selectedRoutine, se
                         <button
                             onClick={() => {
                                 handleDeletingRoutineActivity(activity.routineActivityId, token)
-                                history.push("/myroutines/")
+                                history.push(`/routines/${username}`)
                             }}
                         >Delete Activity</button>
                 </div>

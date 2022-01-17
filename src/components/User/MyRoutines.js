@@ -20,7 +20,7 @@ async function handleFetchingPublicUserRoutines(user){
     }
 }
 
-const MyRoutines = ({myRoutines, setMyRoutines, token, history, routines, setRoutines}) => {
+const MyRoutines = ({myRoutines, setMyRoutines, token, history, username}) => {
     
     return (
         <div>
@@ -51,7 +51,7 @@ const MyRoutines = ({myRoutines, setMyRoutines, token, history, routines, setRou
                         </div>
                         <button onClick={() => {
                                     console.log(history)
-                                    history.push("/myroutines/" + routine.id)
+                                    history.push(`/routines/${username}/` + routine.id)
                                 }}>Edit Routine & Activity Details</button>
                     </article>
                     ))
