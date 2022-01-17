@@ -11,3 +11,13 @@
     display: flex;
     justify-content: space-around;
 }
+
+.singleRoutineBtns {
+    width: 80%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/* .singleRoutineBtns > button {
+    padding: 1em;
+} */

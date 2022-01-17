@@ -14,8 +14,6 @@ const MyRoutines = ({myRoutines, setMyRoutines, token, history, activities}) => 
                     console.log(history)
             }}>Create a New Routine</button>
         : null }
-            {/* <h1>My routines</h1> */}
-            {/* <NewRoutine setMyRoutines={setMyRoutines} myRoutines={myRoutines} token={token} /> */}
             <div className='myRoutinesContainer'>
                 {myRoutines.length ? myRoutines.map(routine => (
                     <article key={routine.id} className='mySingleRoutine'>
@@ -37,7 +35,7 @@ const MyRoutines = ({myRoutines, setMyRoutines, token, history, activities}) => 
                                 <p>No activities yet!</p>
                             )}
                         </div>
-                        <button 
+                        <button  className='btn btn-primary m-3'
                         onClick={() => {
                                     console.log(history)
                                     history.push("/myroutines/" + routine.id)
