@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import API_URL from '../../constants';
 import { handleFetchingUserRoutines } from '../../handleFuncs';
 
-const NewRoutine = ({setMyRoutines, token, myRoutines}) => {
+const NewRoutine = ({setMyRoutines, token, history}) => {
     const [routineName, setRoutineName] = useState('')
     const [routineGoal, setRoutineGoal] = useState('')
     const [isPublic, setIsPublic] = useState(false)
@@ -10,7 +10,7 @@ const NewRoutine = ({setMyRoutines, token, myRoutines}) => {
 
     useEffect(async () => {
         const fetchedRoutines = await handleFetchingUserRoutines(username, setMyRoutines, token)
-        await setMyRoutines(fetchedRoutines)
+        setMyRoutines(fetchedRoutines)
     }, [])
 
     return (
@@ -20,7 +20,7 @@ const NewRoutine = ({setMyRoutines, token, myRoutines}) => {
                 className="newRoutineContainer"
                 onSubmit={async (e) => {
                     e.preventDefault();
-                    console.log("Form submitted")
+                    history.push('/myroutines')
 
                     try {
                         const response = await fetch(
@@ -38,7 +38,7 @@ const NewRoutine = ({setMyRoutines, token, myRoutines}) => {
                             })
                         })
                         
-                        const result = await response.json();
+                        await response.json();
                         const newRoutineResult = await handleFetchingUserRoutines(username, setMyRoutines, token)
                         
                         console.log("API call result is", newRoutineResult)
@@ -75,7 +75,7 @@ const NewRoutine = ({setMyRoutines, token, myRoutines}) => {
                     >
                     </input><p>Public</p>
                 
-                <button className="newRoutineBtn btn btn-lg btn-block mt-4">
+                <button className='btn btn-primary m-3'>
                     Submit New Routine
                 </button>
             </form>

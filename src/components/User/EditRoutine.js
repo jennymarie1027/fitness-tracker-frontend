@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { handlePatchingSingleRoutine, handleFetchingSingleRoutine } from '../../handleFuncs';
+import React, { useEffect } from 'react';
+import { handlePatchingSingleRoutine } from '../../handleFuncs';
 
 const EditRoutine = ({ token, history, selectedRoutine, routineId, updateName, setUpdateName, updateGoal, setUpdateGoal, updateIsPublic, setUpdateIsPublic }) => {
-    
 
     useEffect(() => {
         setUpdateGoal(selectedRoutine.goal)
