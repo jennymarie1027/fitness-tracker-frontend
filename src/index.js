@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter, Route } from 'react-router-dom';
-import { Activities, Footer, Header, Login, Logout, MyRoutines, MySingleRoutine, Routines, Homepage, NewRoutine, EditRoutine } from './components'
+import { Activities, Footer, Header, Login, Logout, MyRoutines, MySingleRoutine, Routines, Homepage, NewRoutine, EditRoutine, AddingRoutineActivity } from './components'
 import CreateActivity from './components/CreateActivity';
 import EditingRoutineActivity from './components/User/EditingRoutineActivity';
 import {handleFetchingRoutines} from './handleFuncs'
@@ -18,6 +18,8 @@ const Index = () => {
     const [updateName, setUpdateName] = useState('')
     const [updateGoal, setUpdateGoal] = useState('')
     const [updateIsPublic, setUpdateIsPublic] = useState(false)
+    const [updateCount, setUpdateCount] = useState(0)
+    const [updateDuration, setUpdateDuration] = useState(0)
 
     useEffect(() => {
         const storedToken = localStorage.getItem('token')
@@ -68,6 +70,7 @@ const Index = () => {
             <Route path='/routines' exact render={(routeProps) => <Routines setRoutines={setRoutines} routines={routines} {...routeProps} /> } />
             <Route path='/newRoutine' exact render={(routeProps) => <NewRoutine setMyRoutines={setMyRoutines} myRoutines={myRoutines} token={token} {...routeProps} /> } />
             <Route path='/editRoutine/:routineId' exact render={(routeProps) => <EditRoutine {...routeProps} myRoutines={myRoutines} setRoutineId={setRoutineId} routineId={routineId} token={token} selectedRoutine={selectedRoutine} routineId={routineId} updateName={updateName} setUpdateName={setUpdateName} updateGoal={updateGoal} setUpdateGoal={setUpdateGoal} updateIsPublic={updateIsPublic} setUpdateIsPublic={setUpdateIsPublic} /> } />
+            <Route path='/addRoutineActivity/:routineId' exact render={(routeProps) => <AddingRoutineActivity {...routeProps} myRoutines={myRoutines} setSelectedRoutine={setSelectedRoutine} selectedRoutine={selectedRoutine} token={token} routineId={routineId} updateCount={updateCount} activities={activities} setUpdateCount={setUpdateCount} updateDuration={updateDuration} setUpdateDuration={setUpdateDuration} /> } />
             { token &&
                 <Route path='/myroutines' exact render={(routeProps) => <MyRoutines {...routeProps} activities={activities} isLoggedIn={!!token} myRoutines={myRoutines} setMyRoutines={setMyRoutines} token={token} /> } />
               }
