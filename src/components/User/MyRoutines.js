@@ -8,7 +8,7 @@ const MyRoutines = ({myRoutines, setMyRoutines, token, history, activities}) => 
     return (
         <div className='marginTop'>
             { token ? 
-                <button  className='btn btn-primary mb-3 mt-3 newActivity'
+                <button  className='btn btn-primary m-3'
                 onClick={() => {
                     history.push('/newRoutine');
                     console.log(history)
@@ -37,7 +37,8 @@ const MyRoutines = ({myRoutines, setMyRoutines, token, history, activities}) => 
                                 <p>No activities yet!</p>
                             )}
                         </div>
-                        <button onClick={() => {
+                        <button  className='btn btn-primary'
+                        onClick={() => {
                                     console.log(history)
                                     history.push("/myroutines/" + routine.id)
                                 }}>Edit Routine & Activity Details</button>
