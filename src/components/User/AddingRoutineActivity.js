@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { handleAddingRoutineActivity } from '../../handleFuncs';
+import { handleAddingRoutineActivity, handleFetchingSingleRoutine } from '../../handleFuncs';
 
-const AddingRoutineActivity = ({token, routineId, updateCount, setUpdateCount, updateDuration, setUpdateDuration, activities}) => {
+const AddingRoutineActivity = ({history, token, routineId, updateCount, setUpdateCount, updateDuration, setUpdateDuration, activities, selectedRoutine, myRoutines, setSelectedRoutine}) => {
     const [activityId, setActivityId] = useState(null)
-    
+
+    useEffect(async () => {
+        const displayedRoutine = await handleFetchingSingleRoutine(routineId, myRoutines)
+        setSelectedRoutine(displayedRoutine)
+    }, [myRoutines, routineId])
+
     return (
-        <div>
+        <div className='marginTop'>
                 <form
-                    
                     onSubmit={async (e) => {
                         e.preventDefault()
                         const data = await handleAddingRoutineActivity(routineId, activityId, updateCount, updateDuration, token);
@@ -22,7 +26,7 @@ const AddingRoutineActivity = ({token, routineId, updateCount, setUpdateCount, u
 
                     }}
                 >
-                    <h1>Add activity</h1>
+                    <h1>Add activity to {selectedRoutine ? selectedRoutine.name : 'no selected routine'}</h1>
                     <div>
                         <label>Choose an activity: </label>
                         <select 
