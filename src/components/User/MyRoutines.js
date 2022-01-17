@@ -8,7 +8,10 @@ const MyRoutines = ({myRoutines, setMyRoutines, token, history, activities}) => 
     return (
         <div>
             <h1>My routines</h1>
-            <NewRoutine setMyRoutines={setMyRoutines} myRoutines={myRoutines} token={token} />
+            {token ? 
+                <NewRoutine setMyRoutines={setMyRoutines} myRoutines={myRoutines} token={token} />
+                : null
+            }
             <div className='myRoutinesContainer'>
                 {myRoutines.length ? myRoutines.map(routine => (
                     <article key={routine.id} className='mySingleRoutine'>
