@@ -1,10 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import AddingRoutineActivity from './AddingRoutineActivity';
-import NewRoutine from './newRoutine';
+import { handleFetchingPublicUserRoutines } from '../../handleFuncs';
 
-const MyRoutines = ({myRoutines, setMyRoutines, token, history, activities}) => {
-    const [routineActivity, setRoutineActivity] = useState("")
-    
+const MyRoutines = ({mappedRoutines, setMappedRoutines, myRoutines, token, history, match, publicRoutines, setPublicRoutines}) => {
+    const username = match.params.username
+
+    useEffect(() => {
+        async function userPublicRoutines() {                  
+            const results = await handleFetchingPublicUserRoutines(username)
+            setPublicRoutines(results)   
+            setMappedRoutines(results)         
+            
+            return results
+        }
+        if(myRoutines.length === 0){ 
+            userPublicRoutines();
+        } else setMappedRoutines(myRoutines)
+    }, []); 
+
+    console.log("PUBLIC ROUTINES ", publicRoutines)
+    console.log("MAPPED ROUTINES ", mappedRoutines)
     return (
         <div className='marginTop'>
             { token ? 
@@ -15,7 +29,7 @@ const MyRoutines = ({myRoutines, setMyRoutines, token, history, activities}) => 
             }}>Create a New Routine</button>
         : null }
             <div className='myRoutinesContainer'>
-                {myRoutines.length ? myRoutines.map(routine => (
+                {mappedRoutines.length ? mappedRoutines.map(routine => (
                     <article key={routine.id} className='mySingleRoutine'>
                         <div
                             className='routineContainer'
@@ -35,11 +49,11 @@ const MyRoutines = ({myRoutines, setMyRoutines, token, history, activities}) => 
                                 <p>No activities yet!</p>
                             )}
                         </div>
-                        <button  className='btn btn-primary m-3'
+                        { username === localStorage.getItem('username') && token ? <button  className='btn btn-primary m-3'
                         onClick={() => {
                                     console.log(history)
-                                    history.push("/myroutines/" + routine.id)
-                                }}>Edit Routine & Activity Details</button>
+                                    history.push(`/routines/${username}/` + routine.id)
+                                }}>Edit Routine & Activity Details</button> : null}
                     </article>
                     ))
                 : <p>You have not made any routines yet!</p>}

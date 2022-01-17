@@ -16,7 +16,7 @@ const EditRoutine = ({ token, history, selectedRoutine, routineId, updateName, s
                 onSubmit={(e) => {
                     e.preventDefault()
                     handlePatchingSingleRoutine(token, routineId, updateName, updateGoal, updateIsPublic)
-                    history.push('/myroutines')
+                    history.push(`/routines/${username}`)
                 }}
             >
                 <h1>Edit Routine:</h1>

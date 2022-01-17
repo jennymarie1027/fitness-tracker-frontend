@@ -4,7 +4,7 @@ import AddingRoutineActivity from './AddingRoutineActivity';
 import EditRoutine from './EditRoutine';
 
 const MySingleRoutine = ({
-    match, history, token, myRoutines, selectedRoutine, setSelectedRoutine, routineId, setRoutineId, }) => {
+    match, history, token, myRoutines, selectedRoutine, setSelectedRoutine, routineId, setRoutineId, username }) => {
 
     useEffect(() => {
         setRoutineId(Number(match.params.routineId));
@@ -30,7 +30,7 @@ const MySingleRoutine = ({
                     <button className='btn btn-primary m-3'
                         onClick={() => {
                             handleDeletingSingleRoutine(routineId, token)
-                            history.push('/myroutines')
+                            history.push(`/routines/${username}`)
                         }}
                     >
                         Delete routine
@@ -63,13 +63,13 @@ const MySingleRoutine = ({
                         <button className='btn btn-primary m-3'
                             onClick={() => {
                                 console.log('activity = ', activity)
-                                history.push("/myroutines/" + routineId + "/" + activity.routineActivityId)
+                                history.push(`/routines/${username}/` + routineId + "/" + activity.routineActivityId)
                             }}
                         >Edit Activity</button>
                         <button className='btn btn-primary m-3'
                             onClick={() => {
                                 handleDeletingRoutineActivity(activity.routineActivityId, token)
-                                history.push("/myroutines/")
+                                history.push(`/routines/${username}`)
                             }}
                         >Delete Activity</button>
                     </div>
