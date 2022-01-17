@@ -7,6 +7,7 @@ import MyRoutines from './User/MyRoutines';
 import MySingleRoutine from './User/MySingleRoutine';
 import Routines from './Routines';
 import Homepage from './Homepage';
+import NewRoutine from './User/newRoutine';
 
 export {
     Activities,
@@ -17,5 +18,6 @@ export {
     MyRoutines,
     MySingleRoutine,
     Routines,
-    Homepage
+    Homepage,
+    NewRoutine
 }
