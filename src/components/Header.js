@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const Header = ({ token }) => {
+const Header = ({ token, username }) => {
     return (
         <header className='navbar navbar-expand-sm navbar-light bg-light fixed-top'>
             <Link to='/' className='navbar-brand mb-0 h1'>
@@ -28,7 +28,7 @@ const Header = ({ token }) => {
             </>
             ) : ( 
                 <>
-                <Link to='/myroutines' className='nav-link'> My Routines </Link>
+                <Link to={`/routines/${username}`} className='nav-link'> My Routines </Link>
                 <Link to='/logout' className='nav-link'> Logout </Link>
              </> 
              )}

@@ -57,7 +57,7 @@ const Index = () => {
   
     return (
         <BrowserRouter>
-            <Header token={token} />
+            <Header token={token} username={localStorage.getItem('username')} />
             <Route path='/login' exact render={(routeProps) => <Login {...routeProps} setToken={setToken} token={token}/> } />
             <Route path='/register' exact render={(routeProps) => <Login {...routeProps} setToken={setToken} /> } />
             <Route path='/activities' exact render={(routeProps) => <Activities {...routeProps} token={token} activities={activities} setActivities={setActivities}/> } />
@@ -67,7 +67,7 @@ const Index = () => {
             <Route path='/routines/:userId/:routineId' exact render={(routeProps) => <MySingleRoutine {...routeProps} activities={activities} token={token} selectedRoutine={selectedRoutine} setSelectedRoutine={setSelectedRoutine} myRoutines={myRoutines} />} />
             <Route path='/routines/:userId/:routineId/:routineActivityId' exact render ={(routeProps) => <EditingRoutineActivity {...routeProps} token={token} />}/>
             <Route path='/logout' exact render={(routeProps) => <Logout {...routeProps} setToken={setToken} /> } />
-            <Route path='/' exact render={() => <Homepage token={token} />}/>
+            <Route path='/' exact render={() => <Homepage token={token} username={localStorage.getItem('username')} />}/>
         </BrowserRouter>
     )
 }
