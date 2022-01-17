@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import API_URL from '../constants';
+import { handleFetchingPublicUserRoutines } from '../handleFuncs';
 // const {handleFetchingRoutines} = '../handleFuncs.js';
 
 async function handleFetchingRoutines( ){
@@ -12,7 +13,7 @@ async function handleFetchingRoutines( ){
     }
 }
 
-const Routines = ({ routines, setRoutines}) => {
+const Routines = ({ routines, setRoutines, setMyRoutines}) => {
 
     useEffect(
         async ()=> {                  
@@ -28,7 +29,9 @@ const Routines = ({ routines, setRoutines}) => {
                     <div key={routine.id} className='singleRoutine'>
                     <h2>{routine.name}</h2>
                     <p>Routine Goal: {routine.goal}</p>
-                    <p>Created By: <a href='/myroutines'>{routine.creatorName}</a></p>
+                    <p>Created By: <button href='/myroutines' onClick={
+                        //localStorage.setItem('username', routine.creatorName)
+                    }>{routine.creatorName}</button></p>
                     <div className='activitiesContainer'>
                     {routine.activities.length ? (
                              routine.activities.map(activity => (

@@ -125,6 +125,25 @@ async function handleFetchingRoutines( ){
     }
 }
 
+async function handleFetchingPublicUserRoutines(user){
+    console.log("IN")
+    try {
+        const result = await fetch(`${API_URL}/api/routines`, { headers: { 'Content-Type': "application/json",} } )
+        const data= await result.json();
+
+        let userData = []
+        
+        for(let i=0; i<data.length; i++){
+            if(data[i].creatorName === user) userData.push(data[i]);
+        }
+
+        console.log("USER DATA IS", userData)
+        return userData
+    } catch (error) {
+        throw error;
+    }
+}
+
 
 async function handleFetchingActivities()  {
     try {
@@ -295,6 +314,7 @@ export {
     handleFetchingActivities,
     handleAddingActivity,
     //Public Routines
+    handleFetchingPublicUserRoutines,
     //User Routines
     handleFetchingRoutines,
     handleFetchingUserRoutines,

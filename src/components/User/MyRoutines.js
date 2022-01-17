@@ -2,11 +2,28 @@ import React, { useState, useEffect } from 'react';
 import AddingRoutineActivity from './AddingRoutineActivity';
 import NewRoutine from './newRoutine';
 
+async function handleFetchingPublicUserRoutines(user){
+    try {
+        const result = await fetch(`${API_URL}/api/routines`, { headers: { 'Content-Type': "application/json",} } )
+        const data= await result.json();
+
+        let userData = []
+        
+        for(let i=0; i<data.length; i++){
+            if(data[i].creatorName === user) userData.push(data[i]);
+        }
+
+        console.log(userData)
+        return userData
+    } catch (error) {
+        throw error;
+    }
+}
+
 const MyRoutines = ({myRoutines, setMyRoutines, token, history, routines, setRoutines}) => {
     
     return (
         <div>
-            <h1>My routines</h1>
             {token ? 
                 <NewRoutine setMyRoutines={setMyRoutines} myRoutines={myRoutines} token={token} />
                 : null
