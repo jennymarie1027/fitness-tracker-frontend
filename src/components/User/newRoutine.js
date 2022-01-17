@@ -75,7 +75,7 @@ const NewRoutine = ({setMyRoutines, token, history}) => {
                     >
                     </input><p>Public</p>
                 
-                <button className="newRoutineBtn btn btn-lg btn-block mt-4">
+                <button className='btn btn-primary m-3'>
                     Submit New Routine
                 </button>
             </form>
