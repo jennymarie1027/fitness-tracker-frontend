@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { handleFetchingPublicUserRoutines } from '../../handleFuncs';
 
-const MyRoutines = ({mappedRoutines, setMappedRoutines, myRoutines, token, history, username, match, publicRoutines, setPublicRoutines}) => {
+const MyRoutines = ({mappedRoutines, setMappedRoutines, myRoutines, token, history, match, publicRoutines, setPublicRoutines}) => {
+    const username = match.params.username
+
     useEffect(() => {
         async function userPublicRoutines() {                  
-            const results = await handleFetchingPublicUserRoutines(match.params.username)
+            const results = await handleFetchingPublicUserRoutines(username)
             setPublicRoutines(results)   
             setMappedRoutines(results)         
             
@@ -47,11 +49,11 @@ const MyRoutines = ({mappedRoutines, setMappedRoutines, myRoutines, token, histo
                                 <p>No activities yet!</p>
                             )}
                         </div>
-                        <button  className='btn btn-primary m-3'
+                        { username === localStorage.getItem('username') && token ? <button  className='btn btn-primary m-3'
                         onClick={() => {
                                     console.log(history)
                                     history.push(`/routines/${username}/` + routine.id)
-                                }}>Edit Routine & Activity Details</button>
+                                }}>Edit Routine & Activity Details</button> : null}
                     </article>
                     ))
                 : <p>You have not made any routines yet!</p>}
