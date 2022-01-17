@@ -30,7 +30,7 @@ const MySingleRoutine = ({
                     <button className='btn btn-primary m-3'
                         onClick={() => {
                             handleDeletingSingleRoutine(routineId, token)
-                            history.push('/myroutines')
+                            history.push(`/routines/${username}`)
                         }}
                     >
                         Delete routine
