@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { handleFetchingPublicUserRoutines } from '../../handleFuncs';
 
 const MyRoutines = ({mappedRoutines, setMappedRoutines, myRoutines, token, history, match, publicRoutines, setPublicRoutines}) => {
-    const username = match.params.username
+    const [username, setUsername] = useState(match.params.username)
 
     useEffect(() => {
         async function userPublicRoutines() {                  
@@ -10,22 +10,20 @@ const MyRoutines = ({mappedRoutines, setMappedRoutines, myRoutines, token, histo
             setPublicRoutines(results)   
             setMappedRoutines(results)         
             
-            return results
+            // return results
         }
         if(myRoutines.length === 0){ 
             userPublicRoutines();
         } else setMappedRoutines(myRoutines)
-    }, []); 
+    }, [myRoutines]); 
 
-    console.log("PUBLIC ROUTINES ", publicRoutines)
-    console.log("MAPPED ROUTINES ", mappedRoutines)
+
     return (
         <div className='marginTop'>
             { token ? 
                 <button  className='btn btn-primary m-3'
                 onClick={() => {
                     history.push('/newRoutine');
-                    console.log(history)
             }}>Create a New Routine</button>
         : null }
             <div className='myRoutinesContainer'>
@@ -51,7 +49,6 @@ const MyRoutines = ({mappedRoutines, setMappedRoutines, myRoutines, token, histo
                         </div>
                         { username === localStorage.getItem('username') && token ? <button  className='btn btn-primary m-3'
                         onClick={() => {
-                                    console.log(history)
                                     history.push(`/routines/${username}/` + routine.id)
                                 }}>Edit Routine & Activity Details</button> : null}
                     </article>
