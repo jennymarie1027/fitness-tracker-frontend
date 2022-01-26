@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { handleAddingRoutineActivity, handleFetchingSingleRoutine } from '../../handleFuncs';
 
-const AddingRoutineActivity = ({history, token, routineId, updateCount, setUpdateCount, updateDuration, setUpdateDuration, activities, selectedRoutine, myRoutines, setSelectedRoutine}) => {
+const AddingRoutineActivity = ({history, match, token, routineId, updateCount, setUpdateCount, updateDuration, setUpdateDuration, activities, selectedRoutine, myRoutines, setSelectedRoutine}) => {
     const [activityId, setActivityId] = useState(null)
+    const [username, setUsername] = useState(match.params.username)
 
     useEffect(async () => {
         const displayedRoutine = await handleFetchingSingleRoutine(routineId, myRoutines)
         setSelectedRoutine(displayedRoutine)
-    }, [myRoutines, routineId])
+    }, [])
 
     return (
         <div className='marginTop'>
@@ -16,14 +17,14 @@ const AddingRoutineActivity = ({history, token, routineId, updateCount, setUpdat
                         e.preventDefault()
                         const data = await handleAddingRoutineActivity(routineId, activityId, updateCount, updateDuration, token);
                         if (data.error) {
-                            alert('that activity already exists on this routine');
+                            alert('that activity already exists on this routine, try adding a different one');
                             setUpdateCount('');
                             setUpdateDuration('');
                         } 
                         else {
-                            history.push('/myroutines');
+                            console.log('data inside onSubmit in AddingRoutineActivity = ', data);
+                            history.push(`/routines/${username}/${routineId}`);
                         }
-
                     }}
                 >
                     <h1>Add activity to {selectedRoutine ? selectedRoutine.name : 'no selected routine'}</h1>
