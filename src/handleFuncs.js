@@ -184,8 +184,6 @@ async function handleFetchingActivities()  {
         })
     
         const data = await result.json();
-        console.log("Fetching user routines successful")
-        console.log("data from handle funcs is ", data)
         setMyRoutines(data)
         return data;
     } catch (error) {

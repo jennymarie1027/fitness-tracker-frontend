@@ -20,8 +20,6 @@ const NewRoutine = ({setMyRoutines, token, history}) => {
                 className="newRoutineContainer"
                 onSubmit={async (e) => {
                     e.preventDefault();
-                    history.push('/myroutines')
-
                     try {
                         const response = await fetch(
                             API_URL + '/api/routines',
@@ -38,10 +36,14 @@ const NewRoutine = ({setMyRoutines, token, history}) => {
                             })
                         })
                         
-                        await response.json();
+                        const data = await response.json();
+                        if (data.error) {
+                            alert('that routine cannot be added, try a different name')
+                            history.push('/newRoutine')
+                        }
                         const newRoutineResult = await handleFetchingUserRoutines(username, setMyRoutines, token)
-                        
-                        console.log("API call result is", newRoutineResult)
+                        setMyRoutines(newRoutineResult);
+                        history.push('/myroutines')
                     } catch (error) {
                         console.error(error)
                     }

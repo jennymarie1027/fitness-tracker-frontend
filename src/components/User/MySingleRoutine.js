@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { handleFetchingSingleRoutine, handleDeletingSingleRoutine, handleDeletingRoutineActivity } from '../../handleFuncs';
+import { handleFetchingSingleRoutine, handleDeletingSingleRoutine, handleDeletingRoutineActivity, handleFetchingActivities } from '../../handleFuncs';
 import AddingRoutineActivity from './AddingRoutineActivity';
 import EditRoutine from './EditRoutine';
 
 const MySingleRoutine = ({
     match, history, token, myRoutines, selectedRoutine, setSelectedRoutine, routineId, setRoutineId, username }) => {
 
+        const [selectedRoutineActivities, setSelectedRoutineActivities] = useState()
     useEffect(() => {
         setRoutineId(Number(match.params.routineId));
     }, [])
-
-    console.log('selectedRoutine = ', selectedRoutine);
     
     useEffect(async () => {
+        await handleFetchingActivities();
         const displayedRoutine = await handleFetchingSingleRoutine(routineId, myRoutines)
+        console.log(displayedRoutine.activities)
         setSelectedRoutine(displayedRoutine)
-    }, [myRoutines, routineId])
+    }, [selectedRoutine, routineId])
 
     return (
         <div className='marginTop'>
